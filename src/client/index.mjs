@@ -1,5 +1,5 @@
 import { createBot } from './bot.mjs';
-import { actions, events, rooms } from './protocol.mjs';
+import { actions, events, rooms, ranks, suits } from './protocol.mjs';
 import { getNameFromCommandLine } from './name.mjs';
 import { evaluator } from './poker-hand-evaluator.mjs';
 
@@ -11,4 +11,6 @@ export {
     rooms,
     getNameFromCommandLine,
     evaluator,
+    ranks,
+    suits
 };
