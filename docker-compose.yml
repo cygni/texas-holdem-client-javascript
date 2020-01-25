@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  # Poker server (docker-compose up poker-server)
+  poker-server:
+    image: "cygni/texasholdem:server-1.1.22.2"
+    ports:
+      - "8080:8080"
+      - "4711:4711"
+    # command: "texas"
+
+  # Can be used as a shell within the docker container. Should contain node, yarn etc
+  poker-shell:
+    image: node:13-stretch
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    working_dir: "/app"
+    command: "/bin/bash"

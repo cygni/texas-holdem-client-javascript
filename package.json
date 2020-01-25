@@ -1,10 +1,10 @@
 {
-    "name": "texas-holdem-botgame-es6-client",
+    "name": "texas-holdem-client-javascript",
     "version": "1.0.0",
-    "description": "This package contains a client written in ES6 for the texas-holdem-botgame",
+    "description": "A client written in ES6 for the texas-holdem-botgame",
     "main": "./src/index.mjs",
     "type": "module",
-    "repository": "https://github.com/cygni/texas-holdem-botgame",
+    "repository": "https://github.com/cygni/texas-holdem-client-javascript",
     "author": "Tommy Wassgren <tommy@cygni.se>",
     "license": "MIT",
     "private": false,
@@ -12,10 +12,9 @@
         "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
         "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
         "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
-        "play:local:training": "POKER_HOST=host.docker.internal POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
-        "play:local:freeplay": "POKER_HOST=host.docker.internal POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
-        "play:local:tournament": "POKER_HOST=host.docker.internal POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
-        "play": "yarn play:local:training",
+        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
+        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
+        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
         "test": "jest"
     },
     "devDependencies": {
@@ -27,7 +26,7 @@
     },
     "dependencies": {
         "lodash": "^4.17.15",
-        "pokersolver": "2.1.2",
+        "pokersolver": "^2.1.2",
         "uuid": "^3.4.0"
     }
 }
