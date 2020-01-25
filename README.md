@@ -1,5 +1,39 @@
 # texas-holdem-client-javascript
 
+## Prerequisites
+* Docker
+* git
+
+## Getting started
+Start off by cloning the repo:
+
+```bash
+git clone https://github.com/cygni/texas-holdem-client-javascript
+```
+
+The poker server runs as a docker process. The clients communicates with the server via sockets on port 4711 and there is a web interface on port 8080.
+
+Start the server via docker-compose:
+```bash
+docker-compose up poker-server
+```
+
+Now you can browse the admin interface on [http://localhost:8080](http://localhost:8080).
+
+Next up, getting the client started. Open a new terminal and start the development shell by executing this:
+```bash
+docker-compose run --rm poker-shell
+```
+
+This starts a terminal where you can run the client. Start off by installing all libs:
+```bash
+yarn install
+```
+
+Then start the client against your local poker-server:
+```
+yarn play:local:training
+```
 
 ## Events
 The following events are sent to the client.
