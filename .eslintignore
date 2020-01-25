@@ -1,0 +1,8 @@
+**/build/
+**/config/
+**/node_modules/
+**/data/
+**/test/
+**/dist/
+**/static/
+

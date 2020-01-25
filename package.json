@@ -1,0 +1,33 @@
+{
+    "name": "texas-holdem-botgame-es6-client",
+    "version": "1.0.0",
+    "description": "This package contains a client written in ES6 for the texas-holdem-botgame",
+    "main": "./src/index.mjs",
+    "type": "module",
+    "repository": "https://github.com/cygni/texas-holdem-botgame",
+    "author": "Tommy Wassgren <tommy@cygni.se>",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
+        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
+        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
+        "play:local:training": "POKER_HOST=host.docker.internal POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
+        "play:local:freeplay": "POKER_HOST=host.docker.internal POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
+        "play:local:tournament": "POKER_HOST=host.docker.internal POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
+        "play": "yarn play:local:training",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.20.0",
+        "esm": "^3.2.25",
+        "jest": "^25.1.0"
+    },
+    "dependencies": {
+        "lodash": "^4.17.15",
+        "pokersolver": "2.1.2",
+        "uuid": "^3.4.0"
+    }
+}
