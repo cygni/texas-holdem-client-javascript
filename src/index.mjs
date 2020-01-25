@@ -1,4 +1,4 @@
-import { createBot, actions, events, getNameFromCommandLine } from './client/index.mjs';
+import { createBot, actions, events, getNameFromCommandLine, evaluator } from './client/index.mjs';
 
 // Create the bot, name it by using the command line argument (yarn play:<env>:<room> player-name)
 const bot = createBot({ name: getNameFromCommandLine() });
@@ -18,9 +18,9 @@ bot.on(events.TableIsDoneEvent, (event) => {
 
 // Register the action handler, this method is invoked by the game engine when it is time for
 // your bot to make a move
+// eslint-disable-next-line complexity
 bot.registerActionHandler((possibleActions) => {
     let raiseAction, callAction, checkAction, foldAction, allInAction;
-
     possibleActions
         // eslint-disable-next-line complexity
         .forEach((action) => {
@@ -45,7 +45,17 @@ bot.registerActionHandler((possibleActions) => {
             }
         });
 
-    return checkAction || allInAction || callAction || raiseAction || foldAction;
+    const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
+
+    if (ranking > 5) {
+        return allInAction || raiseAction || callAction || checkAction || foldAction;
+    }
+
+    if (ranking > 3) {
+        return raiseAction || callAction || checkAction || foldAction;
+    }
+
+    return checkAction || callAction || raiseAction || allInAction || foldAction;
 });
 
 bot.connect();

@@ -20,7 +20,7 @@ const straight = [
 
 const straight2 = [
     { 'rank': 'ACE', 'suit': 'SPADES' },
-    { 'rank': 'TWO', 'suit': 'SPADES' },
+    { 'rank': 'DEUCE', 'suit': 'SPADES' },
     { 'rank': 'FIVE', 'suit': 'HEARTS' },
     { 'rank': 'FOUR', 'suit': 'SPADES' },
     { 'rank': 'THREE', 'suit': 'SPADES' },
@@ -36,7 +36,7 @@ const straightFlush = [
 
 const straightFlush2 = [
     { 'rank': 'ACE', 'suit': 'SPADES' },
-    { 'rank': 'TWO', 'suit': 'SPADES' },
+    { 'rank': 'DEUCE', 'suit': 'SPADES' },
     { 'rank': 'FIVE', 'suit': 'SPADES' },
     { 'rank': 'FOUR', 'suit': 'SPADES' },
     { 'rank': 'THREE', 'suit': 'SPADES' },
@@ -91,7 +91,7 @@ const higherTwoPair = [
 ];
 
 const pair = [
-    { 'rank': 'TWO', 'suit': 'DIAMONDS' },
+    { 'rank': 'DEUCE', 'suit': 'DIAMONDS' },
     { 'rank': 'FOUR', 'suit': 'CLUBS' },
     { 'rank': 'QUEEN', 'suit': 'SPADES' },
     { 'rank': 'JACK', 'suit': 'SPADES' },
@@ -99,7 +99,7 @@ const pair = [
 ];
 
 const higherPair = [
-    { 'rank': 'TWO', 'suit': 'DIAMONDS' },
+    { 'rank': 'DEUCE', 'suit': 'DIAMONDS' },
     { 'rank': 'KING', 'suit': 'CLUBS' },
     { 'rank': 'QUEEN', 'suit': 'SPADES' },
     { 'rank': 'JACK', 'suit': 'SPADES' },
@@ -107,7 +107,7 @@ const higherPair = [
 ];
 
 const fullPair = [
-    { 'rank': 'TWO', 'suit': 'DIAMONDS' },
+    { 'rank': 'DEUCE', 'suit': 'DIAMONDS' },
     { 'rank': 'FOUR', 'suit': 'CLUBS' },
     { 'rank': 'FIVE', 'suit': 'CLUBS' },
     { 'rank': 'NINE', 'suit': 'CLUBS' },
@@ -122,7 +122,7 @@ const highCard = [
     { 'rank': 'KING', 'suit': 'DIAMONDS' },
     { 'rank': 'QUEEN', 'suit': 'HEARTS' },
     { 'rank': 'NINE', 'suit': 'HEARTS' },
-    { 'rank': 'TWO', 'suit': 'CLUBS' },
+    { 'rank': 'DEUCE', 'suit': 'CLUBS' },
     { 'rank': 'SEVEN', 'suit': 'SPADES' },
 ];
 

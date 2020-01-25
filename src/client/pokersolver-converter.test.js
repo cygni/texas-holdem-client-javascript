@@ -17,7 +17,7 @@ describe('Testing conversion between Texas protocol and pokersolver hands', () =
         expect(toSolverCard({ rank: ranks.five, suit: suits.hearts })).toEqual('5h');
         expect(toSolverCard({ rank: ranks.four, suit: suits.clubs })).toEqual('4c');
         expect(toSolverCard({ rank: ranks.three, suit: suits.spades })).toEqual('3s');
-        expect(toSolverCard({ rank: ranks.two, suit: suits.diamonds })).toEqual('2d');
+        expect(toSolverCard({ rank: ranks.deuce, suit: suits.diamonds })).toEqual('2d');
     });
 
     it('Invalid texas rank should fail', () => {
@@ -41,7 +41,7 @@ describe('Testing conversion between Texas protocol and pokersolver hands', () =
         expect(toTexasCard('5d')).toMatchObject({ rank: ranks.five, suit: suits.diamonds });
         expect(toTexasCard('4s')).toMatchObject({ rank: ranks.four, suit: suits.spades });
         expect(toTexasCard('3c')).toMatchObject({ rank: ranks.three, suit: suits.clubs });
-        expect(toTexasCard('2h')).toMatchObject({ rank: ranks.two, suit: suits.hearts });
+        expect(toTexasCard('2h')).toMatchObject({ rank: ranks.deuce, suit: suits.hearts });
     });
 
     it('Invalid solver rank should fail', () => {

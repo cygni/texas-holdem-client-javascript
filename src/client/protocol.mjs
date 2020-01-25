@@ -94,7 +94,7 @@ export const suits = {
 };
 
 export const ranks = {
-    two: 'TWO',
+    deuce: 'DEUCE',
     three: 'THREE',
     four: 'FOUR',
     five: 'FIVE',

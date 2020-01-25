@@ -11,7 +11,7 @@ const solverSuits = {
 const solverSuitValues = Object.values(solverSuits);
 
 const solverRanks = {
-    two: '2',
+    deuce: '2',
     three: '3',
     four: '4',
     five: '5',
