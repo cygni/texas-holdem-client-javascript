@@ -65,6 +65,8 @@ import {
     events, 
     actions, 
     evaluator,
+    suits,
+    ranks,
 } from './client/index.mjs';
 ```
 
