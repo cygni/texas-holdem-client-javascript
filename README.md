@@ -59,14 +59,28 @@ The client API contains the following:
 
 ```javascript
 import { 
+    // Utility for reading from the command line
     getNameFromCommandLine, 
+
+    // Creates the bot
     createBot, 
+
+    // Hand evaluator
+    evaluator,
+
+    // Enums
     rooms,
     events, 
     actions, 
-    evaluator,
     suits,
     ranks,
+
+    // Deck functions
+    createDeck,
+    isSameSuit, 
+    isSameRank, 
+    isSameCard, 
+    isSameHand,
 } from './client/index.mjs';
 ```
 
@@ -88,8 +102,8 @@ bot.connect();
 
 The `connect`-call defaults to
 * your local server (named `poker-server`)
-* port 4711
-* the training room
+* port `4711`
+* the `training` room
 
 You may of course connect the bot to other servers and you typically specify this via the environment variables named `POKER_HOST`, `POKER_PORT` and `POKER_ROOM`. If you want to you can also provide the parameters directly to the `connect`-call.
 
@@ -244,3 +258,29 @@ The suits are:
 * `diamonds`
 * `spades`
 * `hearts`
+
+There are also some utility functions where you can work with a deck of cards. The deck is based on the NPM package [card-deck](https://www.npmjs.com/package/card-deck).
+
+```javascript
+import {
+    suits,
+    ranks,
+    createDeck,
+    isSameSuit, 
+    isSameRank, 
+    isSameCard, 
+    isSameHand,
+} from './client/index.mjs';
+
+// Create a deck but do NOT include the cards provided (typically your hand)
+const deck = createDeck([
+    { rank: ranks.deuce, suit: suits.hearts }
+    { rank: ranks.three, suit: suits.hearts },
+    { rank: ranks.ace, suit: suits.hearts },
+]);
+
+const moreCards1 = deck.draw(5);
+const moreCards2 = deck.draw(5);
+
+isSameHand(moreCards1, moreCards2); // false
+```

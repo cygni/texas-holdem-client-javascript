@@ -2,6 +2,7 @@ import { createBot } from './bot.mjs';
 import { actions, events, rooms, ranks, suits } from './protocol.mjs';
 import { getNameFromCommandLine } from './name.mjs';
 import { evaluator } from './poker-hand-evaluator.mjs';
+import { createDeck, isSameSuit, isSameRank, isSameCard, isSameHand } from './deck.mjs';
 
 // The API of the client
 export {
@@ -12,5 +13,10 @@ export {
     getNameFromCommandLine,
     evaluator,
     ranks,
-    suits
+    suits,
+    createDeck,
+    isSameSuit, 
+    isSameRank, 
+    isSameCard, 
+    isSameHand,
 };

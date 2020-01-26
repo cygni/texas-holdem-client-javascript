@@ -25,6 +25,7 @@
         "jest": "^25.1.0"
     },
     "dependencies": {
+        "card-deck": "^1.0.1",
         "lodash": "^4.17.15",
         "pokersolver": "^2.1.2",
         "uuid": "^3.4.0"
