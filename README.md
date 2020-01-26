@@ -12,7 +12,7 @@ Start off by cloning the repo:
 git clone https://github.com/cygni/texas-holdem-client-javascript
 ```
 
-The poker server runs as a docker process. The clients communicates with the server via sockets on port 4711 and there is a web interface on port 8080.
+The poker server runs as a docker process. The clients communicates with the server via sockets on port 4711 and there is a web interface on port 80 (and it is mapped to localhost on port 8080).
 
 Start the server via docker-compose:
 ```bash
@@ -26,7 +26,8 @@ Next up, getting the client started. Open a new terminal and start the developme
 docker-compose run --rm poker-shell
 ```
 
-This starts a terminal where you can run the client. Start off by installing all libs:
+This starts a terminal where the project root folder is mapped as a volume. In this shell you have all the tools needed to run the client. Start off by installing all libs:
+
 ```bash
 yarn install
 ```
@@ -38,7 +39,7 @@ yarn play:local:training JohnnyPuma
 
 The `JohnnyPuma`-part may look a bit odd but it is simply the name of the poker player.
 
-So, there are three rooms – training, freeplay, and finally tournament. The training room is what you typically use when you develop your bot. Tournament is the room where you meet other bots in a real tournament. Freeplay is a room where you can practice against other bots in tournament-like style.
+So, there are three rooms – `training`, `freeplay`, and finally the `tournament` room. The `training` room is where you typically play when you develop your bot. The `tournament` is the where you meet other bots in a real tournament. In the `freeplay` room you can practice against other bots in a tournament-like style.
 
 There are two servers configured for the client. The local version that is mentioned above and the online version that is hosted on [http://poker.cygni.se](http://poker.cygni.se).
 
@@ -53,7 +54,7 @@ The following start commands are available:
 Note that the player name must be provided as an argument after the `yarn`-command.
 
 ## How does it work?
-The client connects to the server (typically on port `4711`), then the server pushes events to the client notifying the client on what is happening at the table. The client can analyze the events and when it is your turn to play you should answer to an "action request". Your answer is simply which action to choose (e.g. raise or fold).
+The client connects to the server (typically on port `4711`), then the server pushes events to the client notifying the client on what is happening at the table. The client can analyze the events and when it is your turn to play you should answer to an "action request". Your answer is simply which action to choose (e.g. `raise` or `fold`).
 
 The client API contains the following:
 
@@ -101,7 +102,7 @@ bot.connect();
 ```
 
 The `connect`-call defaults to
-* your local server (named `poker-server`)
+* your local server (named `poker-server` in `docker-compose.yml`)
 * port `4711`
 * the `training` room
 
@@ -135,7 +136,7 @@ The events are specified in the client API under `events`. The following events 
 * `YouHaveBeenDealtACardEvent`: 
 * `YouWonAmountEvent`: 
 
-You listen to the events by using the EventEmitter pattern like this:
+You listen to the events by using the `EventEmitter` pattern like this:
 
 ```javascript
 bot.on(events.PlayIsStartedEvent, (event) => {
@@ -144,7 +145,7 @@ bot.on(events.PlayIsStartedEvent, (event) => {
 ```
 
 ## Actions
-Ok, so it is not only about listening to events. Sometimes your player must make a move such as fold, raise etc. This is called an action handler and you register your handler like this:
+Ok, so it is not only about listening to events. Sometimes your player must make a move such as `fold`, `raise` etc. This is called an action handler and you register your handler like this:
 
 ```javascript
 bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
@@ -153,7 +154,7 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
     // Example, if a check is not possible, the checkAction is undefined
     // Each action contains the name of the action (actionType) and the amount required.
 
-    // This bot goes all in every time possible (or folds)
+    // This bot goes all in every time possible (or folds when the player can't go all in).
     return allInAction || foldAction;
 });
 ```
@@ -203,7 +204,8 @@ import { evaluator } from './client/index.mjs';
 // ...stuff...
 
 // Evaluate a hand
-const hand = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards());
+const gameState = bot.getGameState();
+const hand = evaluator.evaluate(gameState.getMyCardsAndCommunityCards());
 
 // Get the ranking of your hand. The ranking for two pair is e.g. lower than the ranking for three of a kind.
 const ranking = hand.ranking();
@@ -213,12 +215,12 @@ if (hand.name() === hands.royalFlush) {
     console.log('We have a royal flush');
 }
 
-// Compares two hands in comparator-style. The result is -1 if my hand is better, +1 if "someOtherHand" is better, and 0 if the hands are equally good.
+// Compares two hands in comparator-style. The result is -1 if my hand is better,
+// +1 if "someOtherHand" is better, and 0 if the hands are equally good.
 const value = evaluator.compare(
-    bot.getGameState().getMyCardsAndCommunityCards(),
+    gameState.getMyCardsAndCommunityCards(),
     someOtherHand
 );
-
 
 // Another approach is to use the winners-function. Compare hands and get the winning hands as an array.
 const w = evaluator.winners([hand1, hand2, hand3]);
@@ -227,7 +229,6 @@ const w = evaluator.winners([hand1, hand2, hand3]);
 So, how do you create a hand? Well, you simply create an array with cards, and a card has a rank and a suit.
 
 ```javascript
-
 import { ranks, suits } from './client/index.mjs';
 
 const hand = [
@@ -297,16 +298,19 @@ The following code can be used as inspiration on how to implement your bot. It u
 bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
     const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
     
+    // All in on good cards
     const selectHighRankingAction = () => allInAction;
-    if (ranking > 3) {
+    if (ranking > 5) {
         return selectHighRankingAction();
     }
 
+    // Raise, call - if possible
     const selectMidRankingAction = () => raiseAction || callAction || checkAction || foldAction;
-    if (ranking > 2) {
+    if (ranking > 3) {
         return selectMidRankingAction();
     }
 
+    // Try to check, call etc.
     const selectLowRankingAction = () => checkAction || callAction || raiseAction || allInAction || foldAction;
     return selectLowRankingAction();
 });
