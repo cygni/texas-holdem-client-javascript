@@ -118,6 +118,35 @@ const validateAction = ({ action, possibleActions }) => {
     }
 };
 
+const setupPossibleActions = (possibleActions) => {
+    let raiseAction, callAction, checkAction, foldAction, allInAction;
+
+    possibleActions
+        // eslint-disable-next-line complexity
+        .forEach((action) => {
+            switch (action.actionType) {
+            case actions.raise:
+                raiseAction = action;
+                break;
+            case actions.call:
+                callAction = action;
+                break;
+            case actions.check:
+                checkAction = action;
+                break;
+            case actions.fold:
+                foldAction = action;
+                break;
+            case actions.allIn:
+                allInAction = action;
+                break;
+            default:
+                break;
+            }
+        });
+    return { raiseAction, callAction, checkAction, foldAction, allInAction };
+};
+
 export const createBot = ({ name }) => {
     const { gameState, gameStateEmitter } = setupGameState({ name });
 
@@ -132,7 +161,7 @@ export const createBot = ({ name }) => {
             playerEmitter.emit(name, event);
         },
         handleActionRequest: possibleActions => {
-            return actionRequestHandler.handleActionRequest(possibleActions);
+            return actionRequestHandler.handleActionRequest(setupPossibleActions(possibleActions));
         }
     };
 

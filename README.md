@@ -147,10 +147,14 @@ bot.on(events.PlayIsStartedEvent, (event) => {
 Ok, so it is not only about listening to events. Sometimes your player must make a move such as fold, raise etc. This is called an action handler and you register your handler like this:
 
 ```javascript
-bot.registerActionHandler((possibleActions) => {
-    // Do magic, and return your action. It can be one of the following:
-    // 'RAISE', 'CALL', 'CHECK', 'FOLD', 'ALL_IN' and the are defined in the actions-enum
-    return actions.check;
+bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
+    // Do magic, and return your action. 
+    // Note that some of the actions may be unset.
+    // Example, if a check is not possible, the checkAction is undefined
+    // Each action contains the name of the action (actionType) and the amount required.
+
+    // This bot goes all in every time possible (or folds)
+    return allInAction || foldAction;
 });
 ```
 
@@ -283,4 +287,27 @@ const moreCards1 = deck.draw(5);
 const moreCards2 = deck.draw(5);
 
 isSameHand(moreCards1, moreCards2); // false
+```
+
+
+## Inspiration
+The following code can be used as inspiration on how to implement your bot. It uses the evaluator and the ranking function.
+
+```javascript
+bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
+    const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
+    
+    const selectHighRankingAction = () => allInAction;
+    if (ranking > 3) {
+        return selectHighRankingAction();
+    }
+
+    const selectMidRankingAction = () => raiseAction || callAction || checkAction || foldAction;
+    if (ranking > 2) {
+        return selectMidRankingAction();
+    }
+
+    const selectLowRankingAction = () => checkAction || callAction || raiseAction || allInAction || foldAction;
+    return selectLowRankingAction();
+});
 ```

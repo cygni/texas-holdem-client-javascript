@@ -7,7 +7,6 @@ services:
     ports:
       - "8080:8080"
       - "4711:4711"
-    # command: "texas"
 
   # Can be used as a shell within the docker container. Should contain node, yarn etc
   poker-shell:
