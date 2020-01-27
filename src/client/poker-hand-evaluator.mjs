@@ -60,7 +60,7 @@ const winners = (texasHands) => {
         .map(toSolverHand)
         .map(solverHand => Hand.solve(solverHand));
 
-    return Hand.winners(solvedHands).map(solved => fromSolved(solved));
+    return Hand.winners(solvedHands).map(solved => fromSolved(solved)).map(evaluated => evaluated.cards());
 };
 
 const compare = (texasHand1, texasHand2) => {

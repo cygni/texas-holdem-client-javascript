@@ -15,6 +15,7 @@
         "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
         "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
         "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
+        "play": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/montecarlo.mjs",
         "test": "jest"
     },
     "devDependencies": {

@@ -11,6 +11,7 @@ const solverSuits = {
 const solverSuitValues = Object.values(solverSuits);
 
 const solverRanks = {
+    one: '1',
     deuce: '2',
     three: '3',
     four: '4',
@@ -65,8 +66,13 @@ const validateSolverSuit = (solverSuit) => {
 
 const validateSolverCard = (solverCard) => {
     if (solverCard && solverCard.length === 2) {
-        validateSolverRank(solverCard[0]);
-        validateSolverSuit(solverCard[1]);
+        try {
+            validateSolverRank(solverCard[0]);
+            validateSolverSuit(solverCard[1]);
+        } catch (err) {
+            console.log('ERROR – solverCard: ', solverCard);
+            throw err;
+        }
         return;
     }
     throw new Error(`Invalid solver card [solverCard=${solverCard}]`);
