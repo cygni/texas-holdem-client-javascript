@@ -15,10 +15,9 @@ import {
 
 const isActionRequest = ({ request }) => request.name === requests.actionRequest;
 
-const handleRequest = ({ request, dispatcher, client }) => {
+const handleRequest = async ({ request, dispatcher, client }) => {
     if (isActionRequest({ request })) {
-        // TODO: can be async
-        const action = dispatcher.handleActionRequest(request.possibleActions);
+        const action = await dispatcher.handleActionRequest(request.possibleActions);
         validateAction({ action, possibleActions: request.possibleActions });
 
         const actionResponse = createActionResponse({ action, request });
@@ -38,12 +37,12 @@ const beautify = ({ event }) => {
     return event;
 };
 
-const routeEvent = ({ client, event, dispatcher }) => {
+const routeEvent = async ({ client, event, dispatcher }) => {
     const e = beautify({ event });
 
     switch (e.classifier) {
     case classifiers.request:
-        handleRequest({ client, request: e, dispatcher });
+        await handleRequest({ client, request: e, dispatcher });
         break;
     case classifiers.event:
         // TODO: can be async
@@ -72,7 +71,7 @@ const setupClient = ({ host, port, room, name, dispatcher }) => {
 
     // TODO: rewrite this mess
     // eslint-disable-next-line complexity
-    client.on('data', (data) => {
+    client.on('data', async (data) => {
         let stringData = data.toString();
         if (saveForNext) {
             stringData = saveForNext + stringData;
@@ -90,7 +89,7 @@ const setupClient = ({ host, port, room, name, dispatcher }) => {
             }
 
             if (jsonStr) {
-                routeEvent({ client, event: JSON.parse(jsonStr), dispatcher });
+                await routeEvent({ client, event: JSON.parse(jsonStr), dispatcher });
             }
         }
     });
@@ -160,9 +159,8 @@ export const createBot = ({ name }) => {
             gameStateEmitter.emit(name, event);
             playerEmitter.emit(name, event);
         },
-        handleActionRequest: possibleActions => {
-            return actionRequestHandler.handleActionRequest(setupPossibleActions(possibleActions));
-        }
+        handleActionRequest: async (possibleActions) => actionRequestHandler
+            .handleActionRequest(setupPossibleActions(possibleActions)),
     };
 
     return {
