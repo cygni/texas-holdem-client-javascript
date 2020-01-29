@@ -39,6 +39,8 @@ yarn play:local:training JohnnyPuma
 
 The `JohnnyPuma`-part may look a bit odd but it is simply the name of the poker player.
 
+The code for your bot is placed in the folder named `my-bot`.
+
 So, there are three rooms – `training`, `freeplay`, and finally the `tournament` room. The `training` room is where you typically play when you develop your bot. The `tournament` is the where you meet other bots in a real tournament. In the `freeplay` room you can practice against other bots in a tournament-like style.
 
 There are two servers configured for the client. The local version that is mentioned above and the online version that is hosted on [http://poker.cygni.se](http://poker.cygni.se).
@@ -82,7 +84,7 @@ import {
     isSameRank, 
     isSameCard, 
     isSameHand,
-} from './client/index.mjs';
+} from '@cygni/poker-client-api';
 ```
 
 ## getNameFromCommandLine
@@ -199,7 +201,7 @@ The game state object contains the following methods:
 The client API contains a utility for evaluating poker hands. It can be imported as `evaluator` and works like this.
 
 ```javascript
-import { evaluator } from './client/index.mjs';
+import { evaluator } from '@cygni/poker-client-api';
 
 // ...stuff...
 
@@ -229,7 +231,7 @@ const w = evaluator.winners([hand1, hand2, hand3]);
 So, how do you create a hand? Well, you simply create an array with cards, and a card has a rank and a suit.
 
 ```javascript
-import { ranks, suits } from './client/index.mjs';
+import { ranks, suits } from '@cygni/poker-client-api';
 
 const hand = [
     { rank: ranks.deuce, suit: suits.clubs },
@@ -275,7 +277,7 @@ import {
     isSameRank, 
     isSameCard, 
     isSameHand,
-} from './client/index.mjs';
+} from '@cygni/poker-client-api';
 
 // Create a deck but do NOT include the cards provided (typically your hand)
 const deck = createDeck([
