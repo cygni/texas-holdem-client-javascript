@@ -9,6 +9,11 @@ export const isSameSuit = (c1, c2) => c1.suit === c2.suit;
 export const isSameRank = (c1, c2) => c1.rank === c2.rank;
 export const isSameCard = (c1, c2) => isSameRank(c1, c2) && isSameSuit(c1, c2);
 
+const rankValues = Object.values(ranks);
+const suitValues = Object.values(suits);
+
+export const isValidCard = (card) => rankValues.includes(card.rank) && suitValues.includes(card.suit);
+
 export const createDeck = (cardsToSkip, shuffle = true) => {
     const deck = new Deck(allCards());
 

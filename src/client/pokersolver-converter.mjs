@@ -11,7 +11,6 @@ const solverSuits = {
 const solverSuitValues = Object.values(solverSuits);
 
 const solverRanks = {
-    one: '1',
     deuce: '2',
     three: '3',
     four: '4',
@@ -29,6 +28,10 @@ const solverRanks = {
 
 // For quick validation lookup
 const solverRankValues = Object.values(solverRanks);
+
+// Special case, not a real card, but the pokersolver-lib sometimes converts to this for aces
+const rankOne = '1';
+solverRankValues.push(rankOne);
 
 const toSolverSuit = texasCard => {
     const s = Object.entries(suits).find(entry => texasCard.suit === entry[1]);
@@ -54,6 +57,7 @@ const validateSolverRank = (solverRank) => {
     if (solverRankValues.includes(solverRank)) {
         return;
     }
+
     throw new Error(`Invalid solver rank [solverRank=${solverRank}]`);
 };
 
@@ -84,6 +88,11 @@ const toTexasSuit = solverCard => {
 };
 
 const toTexasRank = solverCard => {
+    // Special case, not a real card, but the pokersolver-lib sometimes converts to this for aces
+    if (solverCard[0] === rankOne) {
+        return ranks.ace;
+    }
+
     const r = Object.entries(solverRanks).find(entry => solverCard[0] === entry[1]);
     return ranks[r[0]];
 };

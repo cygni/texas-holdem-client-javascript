@@ -50,8 +50,8 @@ const fromSolved = solved => {
     return evaluated;
 };
 
-const evaluate = (myCardsAndCommunityCards = []) => {
-    const solved = Hand.solve(toSolverHand(myCardsAndCommunityCards));
+const evaluate = (cards = []) => {
+    const solved = Hand.solve(toSolverHand(cards));
     return fromSolved(solved);
 };
 

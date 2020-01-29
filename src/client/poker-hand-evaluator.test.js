@@ -1,129 +1,130 @@
 // eslint-disable-next-line no-undef
 const esmImport = require('esm')(module);
 const { evaluator } = esmImport('./poker-hand-evaluator.mjs');
+const { ranks, suits } = esmImport('./protocol.mjs');
 
 const royalFlush = [
-    { 'rank': 'ACE', 'suit': 'CLUBS' },
-    { 'rank': 'KING', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'CLUBS' },
-    { 'rank': 'JACK', 'suit': 'CLUBS' },
-    { 'rank': 'TEN', 'suit': 'CLUBS' },
+    { rank: ranks.ace, suit: suits.clubs },
+    { rank: ranks.king, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.clubs },
+    { rank: ranks.jack, suit: suits.clubs },
+    { rank: ranks.ten, suit: suits.clubs },
 ];
 
 const straight = [
-    { 'rank': 'ACE', 'suit': 'DIAMONDS' },
-    { 'rank': 'KING', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'TEN', 'suit': 'HEARTS' },
+    { rank: ranks.ace, suit: suits.diamonds },
+    { rank: ranks.king, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.ten, suit: suits.hearts },
 ];
 
 const straight2 = [
-    { 'rank': 'ACE', 'suit': 'SPADES' },
-    { 'rank': 'DEUCE', 'suit': 'SPADES' },
-    { 'rank': 'FIVE', 'suit': 'HEARTS' },
-    { 'rank': 'FOUR', 'suit': 'SPADES' },
-    { 'rank': 'THREE', 'suit': 'SPADES' },
+    { rank: ranks.ace, suit: suits.spades },
+    { rank: ranks.deuce, suit: suits.spades },
+    { rank: ranks.five, suit: suits.hearts },
+    { rank: ranks.four, suit: suits.spades },
+    { rank: ranks.three, suit: suits.spades },
 ];
 
 const straightFlush = [
-    { 'rank': 'SEVEN', 'suit': 'HEARTS' },
-    { 'rank': 'SIX', 'suit': 'HEARTS' },
-    { 'rank': 'FIVE', 'suit': 'HEARTS' },
-    { 'rank': 'FOUR', 'suit': 'HEARTS' },
-    { 'rank': 'THREE', 'suit': 'HEARTS' },
+    { rank: ranks.seven, suit: suits.hearts },
+    { rank: ranks.six, suit: suits.hearts },
+    { rank: ranks.five, suit: suits.hearts },
+    { rank: ranks.four, suit: suits.hearts },
+    { rank: ranks.three, suit: suits.hearts },
 ];
 
 const straightFlush2 = [
-    { 'rank': 'ACE', 'suit': 'SPADES' },
-    { 'rank': 'DEUCE', 'suit': 'SPADES' },
-    { 'rank': 'FIVE', 'suit': 'SPADES' },
-    { 'rank': 'FOUR', 'suit': 'SPADES' },
-    { 'rank': 'THREE', 'suit': 'SPADES' },
+    { rank: ranks.ace, suit: suits.spades },
+    { rank: ranks.deuce, suit: suits.spades },
+    { rank: ranks.five, suit: suits.spades },
+    { rank: ranks.four, suit: suits.spades },
+    { rank: ranks.three, suit: suits.spades },
 ];
 
 const flush = [
-    { 'rank': 'NINE', 'suit': 'CLUBS' },
-    { 'rank': 'SIX', 'suit': 'CLUBS' },
-    { 'rank': 'FIVE', 'suit': 'CLUBS' },
-    { 'rank': 'FOUR', 'suit': 'CLUBS' },
-    { 'rank': 'THREE', 'suit': 'CLUBS' },
+    { rank: ranks.nine, suit: suits.clubs },
+    { rank: ranks.six, suit: suits.clubs },
+    { rank: ranks.five, suit: suits.clubs },
+    { rank: ranks.four, suit: suits.clubs },
+    { rank: ranks.three, suit: suits.clubs },
 ];
 
 const fullHouse = [
-    { 'rank': 'FIVE', 'suit': 'CLUBS' },
-    { 'rank': 'FIVE', 'suit': 'HEARTS' },
-    { 'rank': 'FIVE', 'suit': 'DIAMONDS' },
-    { 'rank': 'THREE', 'suit': 'CLUBS' },
-    { 'rank': 'THREE', 'suit': 'HEARTS' },
+    { rank: ranks.five, suit: suits.clubs },
+    { rank: ranks.five, suit: suits.hearts },
+    { rank: ranks.five, suit: suits.diamonds },
+    { rank: ranks.three, suit: suits.clubs },
+    { rank: ranks.three, suit: suits.hearts },
 ];
 
 const fourOfAKind = [
-    { 'rank': 'SEVEN', 'suit': 'CLUBS' },
-    { 'rank': 'THREE', 'suit': 'HEARTS' },
-    { 'rank': 'THREE', 'suit': 'DIAMONDS' },
-    { 'rank': 'THREE', 'suit': 'CLUBS' },
-    { 'rank': 'THREE', 'suit': 'HEARTS' },
+    { rank: ranks.seven, suit: suits.clubs },
+    { rank: ranks.three, suit: suits.hearts },
+    { rank: ranks.three, suit: suits.diamonds },
+    { rank: ranks.three, suit: suits.clubs },
+    { rank: ranks.three, suit: suits.hearts },
 ];
 
 const threeOfAKind = [
-    { 'rank': 'TEN', 'suit': 'DIAMONDS' },
-    { 'rank': 'TEN', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'TEN', 'suit': 'HEARTS' },
+    { rank: ranks.ten, suit: suits.diamonds },
+    { rank: ranks.ten, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.ten, suit: suits.hearts },
 ];
 
 const twoPair = [
-    { 'rank': 'QUEEN', 'suit': 'DIAMONDS' },
-    { 'rank': 'KING', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'HEARTS' },
+    { rank: ranks.queen, suit: suits.diamonds },
+    { rank: ranks.king, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.hearts },
 ];
 
 const higherTwoPair = [
-    { 'rank': 'KING', 'suit': 'DIAMONDS' },
-    { 'rank': 'KING', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'HEARTS' },
+    { rank: ranks.king, suit: suits.diamonds },
+    { rank: ranks.king, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.hearts },
 ];
 
 const pair = [
-    { 'rank': 'DEUCE', 'suit': 'DIAMONDS' },
-    { 'rank': 'FOUR', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'HEARTS' },
+    { rank: ranks.deuce, suit: suits.diamonds },
+    { rank: ranks.four, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.hearts },
 ];
 
 const higherPair = [
-    { 'rank': 'DEUCE', 'suit': 'DIAMONDS' },
-    { 'rank': 'KING', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'HEARTS' },
+    { rank: ranks.deuce, suit: suits.diamonds },
+    { rank: ranks.king, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.hearts },
 ];
 
 const fullPair = [
-    { 'rank': 'DEUCE', 'suit': 'DIAMONDS' },
-    { 'rank': 'FOUR', 'suit': 'CLUBS' },
-    { 'rank': 'FIVE', 'suit': 'CLUBS' },
-    { 'rank': 'NINE', 'suit': 'CLUBS' },
-    { 'rank': 'QUEEN', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'SPADES' },
-    { 'rank': 'JACK', 'suit': 'HEARTS' },
+    { rank: ranks.deuce, suit: suits.diamonds },
+    { rank: ranks.four, suit: suits.clubs },
+    { rank: ranks.five, suit: suits.clubs },
+    { rank: ranks.nine, suit: suits.clubs },
+    { rank: ranks.queen, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.spades },
+    { rank: ranks.jack, suit: suits.hearts },
 ];
 
 const highCard = [
-    { 'rank': 'FOUR', 'suit': 'CLUBS' },
-    { 'rank': 'FIVE', 'suit': 'SPADES' },
-    { 'rank': 'KING', 'suit': 'DIAMONDS' },
-    { 'rank': 'QUEEN', 'suit': 'HEARTS' },
-    { 'rank': 'NINE', 'suit': 'HEARTS' },
-    { 'rank': 'DEUCE', 'suit': 'CLUBS' },
-    { 'rank': 'SEVEN', 'suit': 'SPADES' },
+    { rank: ranks.four, suit: suits.clubs },
+    { rank: ranks.five, suit: suits.spades },
+    { rank: ranks.king, suit: suits.diamonds },
+    { rank: ranks.queen, suit: suits.hearts },
+    { rank: ranks.nine, suit: suits.hearts },
+    { rank: ranks.deuce, suit: suits.clubs },
+    { rank: ranks.seven, suit: suits.spades },
 ];
 
 describe('Test card hands', () => {
@@ -193,19 +194,39 @@ describe('Test card hands', () => {
 
     it('Verify winners', () => {
         const r1 = evaluator.winners([pair, higherPair, twoPair]);
-        expect(r1[0].name()).toEqual(evaluator.hands.twoPair);
+        expect(evaluator.evaluate(r1[0]).name()).toEqual(evaluator.hands.twoPair);
 
         const r2 = evaluator.winners([highCard, pair, higherPair]);
-        expect(r2[0].name()).toEqual(evaluator.hands.pair);
+        expect(evaluator.evaluate(r2[0]).name()).toEqual(evaluator.hands.pair);
+
         expect(r2.length).toEqual(1);
-        r2.forEach(h => console.log('CARDS: ', h.cards()));
     });
 
     it('Verify same ranking for two pair hand', () => {
         const evaluated = evaluator.evaluate(twoPair);
         const evaluatedHigher = evaluator.evaluate(higherTwoPair);
         expect(evaluatedHigher.ranking()).toEqual(evaluated.ranking());
+    });
 
-        console.log('EVALUATED: ', evaluated.asString());
+    it('Verify my own hand is better than community cards', () => {
+        const myCards = [
+            { rank: ranks.ace, suit: suits.diamonds },
+            { rank: ranks.ace, suit: suits.spades },
+        ];
+
+        const communityCards = [
+            { rank: ranks.queen, suit: suits.hearts },
+            { rank: ranks.four, suit: suits.spades },
+            { rank: ranks.five, suit: suits.clubs },
+            { rank: ranks.jack, suit: suits.hearts },
+        ];
+
+        const myRanking = evaluator.evaluate([...myCards, ...communityCards]).ranking();
+        const communityRanking = evaluator.evaluate(communityCards).ranking();
+        expect(myRanking).toBeGreaterThan(communityRanking);
+
+
+        const compare = evaluator.compare([...myCards, ...communityCards], communityCards);
+        expect(compare).toBe(-1);
     });
 });

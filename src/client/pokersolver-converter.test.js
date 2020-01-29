@@ -29,6 +29,7 @@ describe('Testing conversion between Texas protocol and pokersolver hands', () =
     });
 
     it('Convert from texas protocol', () => {
+        expect(toTexasCard('1d')).toMatchObject({ rank: ranks.ace, suit: suits.diamonds });
         expect(toTexasCard('Ad')).toMatchObject({ rank: ranks.ace, suit: suits.diamonds });
         expect(toTexasCard('Kd')).toMatchObject({ rank: ranks.king, suit: suits.diamonds });
         expect(toTexasCard('Qd')).toMatchObject({ rank: ranks.queen, suit: suits.diamonds });
