@@ -1,0 +1,26 @@
+{
+    "name": "@cygni/poker-client-api",
+    "version": "1.0.0",
+    "description": "Client API for in JavaScript for texas-holdem-botgame",
+    "main": "./src/index.mjs",
+    "type": "module",
+    "repository": "https://github.com/cygni/texas-holdem-client-javascript",
+    "author": "Tommy Wassgren <tommy@cygni.se>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "test": "jest"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.20.0",
+        "esm": "^3.2.25",
+        "jest": "^25.1.0"
+    },
+    "dependencies": {
+        "card-deck": "^1.0.1",
+        "pokersolver": "^2.1.2",
+        "uuid": "^3.4.0"
+    }
+}

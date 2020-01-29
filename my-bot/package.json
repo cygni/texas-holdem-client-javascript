@@ -1,0 +1,33 @@
+{
+    "name": "@cygni/my-bot",
+    "version": "1.0.0",
+    "description": "Client bot for texas-holdem-botgame",
+    "main": "./src/index.mjs",
+    "type": "module",
+    "repository": "https://github.com/cygni/texas-holdem-client-javascript",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
+        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
+        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
+        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
+        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
+        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
+        "play": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/montecarlo.mjs",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.20.0",
+        "esm": "^3.2.25",
+        "jest": "^25.1.0"
+    },
+    "dependencies": {
+        "@cygni/poker-client-api": "^1.0.0",
+        "card-deck": "^1.0.1",
+        "pokersolver": "^2.1.2",
+        "uuid": "^3.4.0"
+    }
+}

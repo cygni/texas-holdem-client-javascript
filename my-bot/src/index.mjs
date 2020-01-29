@@ -1,4 +1,4 @@
-import { createBot, events, getNameFromCommandLine, evaluator } from './client/index.mjs';
+import { createBot, events, getNameFromCommandLine, evaluator } from '@cygni/poker-client-api';
 
 import { calculateChenScore } from './chen-score.mjs';
 
@@ -70,7 +70,7 @@ const foldBeforeTheFlop = ({ checkAction, callAction, foldAction, allInAction })
 const isPreFlop = () => bot.getGameState().getCommunityCards().length === 0;
 const isPreTurn = () => bot.getGameState().getCommunityCards().length === 3;
 const isPreRiver = () => bot.getGameState().getCommunityCards().length === 4;
-const isAllCards = () => bot.getGameState().getCommunityCards().length === 5;
+// const isAllCards = () => bot.getGameState().getCommunityCards().length === 5;
 
 const handlePreFlop = (actions) => {
     const myCards = bot.getGameState().getMyCards();

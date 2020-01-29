@@ -1,34 +1,18 @@
 {
-    "name": "texas-holdem-client-javascript",
-    "version": "1.0.0",
-    "description": "A client written in ES6 for the texas-holdem-botgame",
-    "main": "./src/index.mjs",
-    "type": "module",
-    "repository": "https://github.com/cygni/texas-holdem-client-javascript",
-    "author": "Tommy Wassgren <tommy@cygni.se>",
-    "license": "MIT",
-    "private": false,
+    "private": true,
+    "workspaces": [
+        "poker-client-api",
+        "my-bot"
+    ],
     "scripts": {
-        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
-        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
-        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
-        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.mjs",
-        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.mjs",
-        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.mjs",
-        "play": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/montecarlo.mjs",
-        "test": "jest"
-    },
-    "devDependencies": {
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb-base": "^14.0.0",
-        "eslint-plugin-import": "^2.20.0",
-        "esm": "^3.2.25",
-        "jest": "^25.1.0"
-    },
-    "dependencies": {
-        "card-deck": "^1.0.1",
-        "lodash": "^4.17.15",
-        "pokersolver": "^2.1.2",
-        "uuid": "^3.4.0"
+        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node my-bot/src/index.mjs",
+        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node my-bot/src/index.mjs",
+        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node my-bot/src/index.mjs",
+        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node my-bot/src/index.mjs",
+        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node my-bot/src/index.mjs",
+        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node my-bot/src/index.mjs",
+        "test:api": "cd poker-client-api && yarn test",
+        "test:bot": "cd my-bot && yarn test",
+        "test": "yarn test:bot"
     }
 }
