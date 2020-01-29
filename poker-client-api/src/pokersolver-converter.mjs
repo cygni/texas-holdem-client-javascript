@@ -70,13 +70,8 @@ const validateSolverSuit = (solverSuit) => {
 
 const validateSolverCard = (solverCard) => {
     if (solverCard && solverCard.length === 2) {
-        try {
-            validateSolverRank(solverCard[0]);
-            validateSolverSuit(solverCard[1]);
-        } catch (err) {
-            console.log('ERROR – solverCard: ', solverCard);
-            throw err;
-        }
+        validateSolverRank(solverCard[0]);
+        validateSolverSuit(solverCard[1]);
         return;
     }
     throw new Error(`Invalid solver card [solverCard=${solverCard}]`);
