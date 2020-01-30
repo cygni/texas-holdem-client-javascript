@@ -14,42 +14,42 @@ Examples of all responses and requests to and from server/client are described b
 {
   "players": [
     {
-      "name": "perftest_4",
+      "name": "Rookie",
       "chipCount": 10000
     },
     {
-      "name": "perftest_0",
+      "name": "Hellmuth",
       "chipCount": 10000
     },
     {
-      "name": "perftest_1",
+      "name": "Cautious",
       "chipCount": 10000
     },
     {
-      "name": "perftest_2",
+      "name": "Raiser",
       "chipCount": 10000
     },
     {
-      "name": "emil",
+      "name": "JohnnyPuma",
       "chipCount": 10000
     },
     {
-      "name": "perftest_3",
+      "name": "Sensible",
       "chipCount": 10000
     }
   ],
   "smallBlindAmount": 5,
   "bigBlindAmount": 10,
   "dealer": {
-    "name": "perftest_4",
+    "name": "Rookie",
     "chipCount": 10000
   },
   "smallBlindPlayer": {
-    "name": "perftest_0",
+    "name": "Hellmuth",
     "chipCount": 10000
   },
   "bigBlindPlayer": {
-    "name": "perftest_1",
+    "name": "Cautious",
     "chipCount": 10000
   },
   "tableId": 32,
@@ -72,7 +72,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "perftest_1",
+    "name": "Cautious",
     "chipCount": 9990
   },
   "bigBlind": 10,
@@ -84,7 +84,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "perftest_0",
+    "name": "Hellmuth",
     "chipCount": 9995
   },
   "smallBlind": 5,
@@ -134,7 +134,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "perftest_2",
+    "name": "Raiser",
     "chipCount": 9990
   },
   "callBet": 10,
@@ -146,7 +146,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "perftest_0",
+    "name": "Hellmuth",
     "chipCount": 9960
   },
   "type": "se.cygni.texasholdem.communication.message.event.PlayerCheckedEvent",
@@ -157,7 +157,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "emil",
+    "name": "JohnnyPuma",
     "chipCount": 10000
   },
   "investmentInPot": 0,
@@ -169,7 +169,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "emil",
+    "name": "JohnnyPuma",
     "chipCount": 7540
   },
   "investmentInPot": 40,
@@ -181,7 +181,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "perftest_4",
+    "name": "Rookie",
     "chipCount": 10000
   },
   "type": "se.cygni.texasholdem.communication.message.event.PlayerQuitEvent",
@@ -192,7 +192,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "perftest_3",
+    "name": "Sensible",
     "chipCount": 9980
   },
   "raiseBet": 20,
@@ -204,7 +204,7 @@ Examples of all responses and requests to and from server/client are described b
 ```yaml
 {
   "player": {
-    "name": "emil",
+    "name": "JohnnyPuma",
     "chipCount": 0
   },
   "allInAmount": 10000,
@@ -226,7 +226,7 @@ Examples of all responses and requests to and from server/client are described b
   "playersShowDown": [
     {
       "player": {
-        "name": "perftest_1",
+        "name": "Cautious",
         "chipCount": 9880
       },
       "hand": {
@@ -259,7 +259,7 @@ Examples of all responses and requests to and from server/client are described b
     },
     {
       "player": {
-        "name": "perftest_2",
+        "name": "Raiser",
         "chipCount": 9880
       },
       "hand": {
@@ -292,7 +292,7 @@ Examples of all responses and requests to and from server/client are described b
     },
     {
       "player": {
-        "name": "perftest_0",
+        "name": "Hellmuth",
         "chipCount": 9880
       },
       "hand": {
@@ -325,7 +325,7 @@ Examples of all responses and requests to and from server/client are described b
     },
     {
       "player": {
-        "name": "perftest_3",
+        "name": "Sensible",
         "chipCount": 9880
       },
       "hand": {
@@ -358,7 +358,7 @@ Examples of all responses and requests to and from server/client are described b
     },
     {
       "player": {
-        "name": "perftest_4",
+        "name": "Rookie",
         "chipCount": 10480
       },
       "hand": {
@@ -391,7 +391,7 @@ Examples of all responses and requests to and from server/client are described b
     },
     {
       "player": {
-        "name": "emil",
+        "name": "JohnnyPuma",
         "chipCount": 10000
       },
       "hand": {
@@ -419,7 +419,7 @@ Examples of all responses and requests to and from server/client are described b
 {
   "players": [
     {
-      "name": "emil",
+      "name": "JohnnyPuma",
       "chipCount": 0
     },
     {
