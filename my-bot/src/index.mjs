@@ -26,8 +26,10 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
     // Example, if a check is not possible, the checkAction is undefined
     // Each action contains the name of the action (actionType) and the amount required.
 
+    console.log(`ActionHandler: `, { raiseAction, callAction, checkAction, foldAction, allInAction });
+
     // This bot is very aggressive, goes all in every time possible (or raises, calls, checks, folds).
-    return allInAction || raiseAction, callAction, checkAction || foldAction;
+    return allInAction || raiseAction || callAction || checkAction || foldAction;
 });
 
 bot.connect();

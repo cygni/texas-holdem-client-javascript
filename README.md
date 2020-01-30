@@ -118,25 +118,7 @@ bot.connect({ host: 'some.server.com', port: 1234, room: rooms.training });
 Here you can see the `rooms` enum that holds definitions for the three different rooms – `training`, `freeplay`, and `tournament`.
 
 ## Events
-The events are specified in the client API under `events`. The following events are sent to the client.
-
-* `PlayIsStartedEvent`: when the play has - well - started.
-* `CommunityHasBeenDealtACardEvent`: 
-* `PlayerBetBigBlindEvent`: 
-* `PlayerBetSmallBlindEvent`: 
-* `PlayerCalledEvent`: 
-* `PlayerCheckedEvent`: 
-* `PlayerFoldedEvent`: 
-* `PlayerForcedFoldedEvent`: 
-* `PlayerQuitEvent`: 
-* `PlayerRaisedEvent`: 
-* `PlayerWentAllInEvent`: 
-* `ServerIsShuttingDownEvent`: 
-* `ShowDownEvent`: 
-* `TableChangedStateEvent`: 
-* `TableIsDoneEvent`: 
-* `YouHaveBeenDealtACardEvent`: 
-* `YouWonAmountEvent`: 
+The events are specified in the client API under `events`. The documentation for events and responses are in [events.md](events.md)
 
 You listen to the events by using the `EventEmitter` pattern like this:
 
