@@ -1,5 +1,9 @@
 # Texas hold'em Botgame – JavaScript client
-This repo contains the JavaScript client for the [Texas hold'em Botgame](https://github.com/cygni/texas-holdem-botgame). 
+This repo contains the JavaScript client for the [Texas hold'em Botgame](https://github.com/cygni/texas-holdem-botgame).
+
+# About Texas hold'em
+You can read the rules of the game at [pokernews.com](https://www.pokernews.com/poker-rules/texas-holdem.htm).
+Check out the ranking of different [poker hands](pokerhands.md).
 
 ## Prerequisites
 * [Docker](https://www.docker.com/)
