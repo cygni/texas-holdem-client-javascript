@@ -57,7 +57,7 @@ Examples of all responses and requests to and from server/client are described b
   "version": "1.1.22-SNAPSHOT"
 }
 ```
-* `CommunityHasBeenDealtACardEvent`: Whenever a card is added to the Communit all clients recieve this event.
+* `CommunityHasBeenDealtACardEvent`: Whenever a card is added to the Community all clients recieve this event.
 ```yaml
 {
   "card": {
@@ -68,7 +68,7 @@ Examples of all responses and requests to and from server/client are described b
   "version": "1.1.22-SNAPSHOT"
 }
 ```
-* `PlayerBetBigBlindEvent`: Big blinds are placed automatically by game server. A notification is sent to all clients when this happens. The player placing the big blind and the amount is included in the event. 
+* `PlayerBetBigBlindEvent`: Big blinds are placed automatically by the game server. A notification is sent to all clients when this happens. The player placing the big blind and the amount is included in the event. 
 ```yaml
 {
   "player": {
@@ -80,7 +80,7 @@ Examples of all responses and requests to and from server/client are described b
   "version": "1.1.22-SNAPSHOT"
 }
 ```
-* `PlayerBetSmallBlindEvent`: Small blinds are placed automatically by game server. A notification is sent to all clients when this happens. The player placing the small blind and the amount is included in the event. 
+* `PlayerBetSmallBlindEvent`: Small blinds are placed automatically by the game server. A notification is sent to all clients when this happens. The player placing the small blind and the amount is included in the event. 
 ```yaml
 {
   "player": {
