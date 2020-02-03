@@ -6,8 +6,9 @@ You can read the rules of the game at [pokernews.com](https://www.pokernews.com/
 Check out the ranking of different [poker hands](pokerhands.md).
 
 ## Prerequisites
-* [Docker](https://www.docker.com/)
+* [Docker](https://hub.docker.com/?overlay=onboarding)
 * [git](https://git-scm.com/)
+Note that to install Docker for Windows or MacOS you need to create/have an account at dockerhub. It's free and quick to setup.
 
 ## Getting started
 Start off by cloning the repo:
