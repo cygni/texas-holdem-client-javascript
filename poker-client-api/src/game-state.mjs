@@ -90,7 +90,8 @@ export const setupGameState = ({ name }) => {
     });
 
     gameStateEmitter.on(events.PlayIsStartedEvent, (event) => {
-        playerState.isPlaying = true;
+
+        playerState.isPlaying = event.players.map(player => player.name).filter(n => n === name);
         playerState.isTableDone = false;
         playerState.tableId = event.tableId;
         playerState.myCards = [];
@@ -157,6 +158,7 @@ export const setupGameState = ({ name }) => {
         hasPlayerGoneAllIn,
         getInvestmentInPotFor,
 
+        amIStillInGame: () => playerState.isPlaying,
         amIWinner: () => playerState.winner && playerState.winner.name === getMyPlayerName(),
         amIDealerPlayer: () => playerState.table.dealer === getMyPlayerName(),
         amISmallBlindPlayer: () => playerState.table.smallBlindPlayer === getMyPlayerName(),
