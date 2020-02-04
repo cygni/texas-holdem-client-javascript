@@ -1,5 +1,5 @@
 import { createBot } from './bot.mjs';
-import { actions, events, rooms, ranks, suits } from './protocol.mjs';
+import { actions, events, rooms, ranks, suits, tableStates } from './protocol.mjs';
 import { getNameFromCommandLine } from './name.mjs';
 import { evaluator } from './poker-hand-evaluator.mjs';
 import { createDeck, isSameSuit, isSameRank, isSameCard, isSameHand, isValidCard } from './deck.mjs';
@@ -20,4 +20,5 @@ export {
     isSameCard, 
     isSameHand,
     isValidCard,
+    tableStates,
 };

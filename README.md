@@ -6,9 +6,9 @@ You can read the rules of the game at [pokernews.com](https://www.pokernews.com/
 Check out the ranking of different [poker hands](pokerhands.md).
 
 ## Prerequisites
-* [Docker](https://hub.docker.com/?overlay=onboarding)
-* [git](https://git-scm.com/)
-Note that to install Docker for Windows or MacOS you need to create/have an account at dockerhub. It's free and quick to setup.
+* [Docker](https://hub.docker.com/?overlay=onboarding): Note that in order to install Docker for Windows or MacOS you need to create/have an account at dockerhub. It's free and quick to setup.
+* [git](https://git-scm.com/): On Mac this is typically done via Homebrew or the Mac OS X installer. For both, you need XCode Command Line Tools (`xcode-select --install`)
+
 
 ## Getting started
 Start off by cloning the repo:
@@ -17,9 +17,11 @@ Start off by cloning the repo:
 git clone https://github.com/cygni/texas-holdem-client-javascript
 ```
 
-The poker server runs as a docker process. The clients communicates with the server via sockets on port 4711 and there is a web interface on port 80 (and it is mapped to localhost on port 8080).
+There are two processes, first off the poker server and then the poker client i.e. your bot. The latest stable poker server can be found online on [http://poker.cygni.se](http://poker.cygni.se). However, during development of your bot you typically run the server locally.
 
-Start the server via docker-compose:
+The local poker server runs as a docker process. The clients communicates with the server via sockets on port 4711 and there is a web interface on port 80 (and it is mapped to localhost on port 8080).
+
+Start the local server via docker-compose:
 ```bash
 docker-compose up poker-server
 ```
@@ -37,7 +39,7 @@ This starts a terminal where the project root folder is mapped as a volume. In t
 yarn install
 ```
 
-Then start the client against your local poker-server:
+Then start the client against your local poker server:
 ```bash
 yarn play:local:training JohnnyPuma
 ```
@@ -51,12 +53,12 @@ So, there are three rooms – `training`, `freeplay`, and finally the `tourname
 There are two servers configured for the client. The local version that is mentioned above and the online version that is hosted on [http://poker.cygni.se](http://poker.cygni.se).
 
 The following start commands are available:
-* `yarn play:local:training`
-* `yarn play:local:freeplay`
-* `yarn play:local:tournament`
-* `yarn play:online:training`
-* `yarn play:online:freeplay`
-* `yarn play:online:tournament`
+* `yarn play:local:training`: connects to the `training` room on your [local poker server](http://localhost:8080)
+* `yarn play:local:freeplay`: connects to the `freeplay` room on your [local poker server](http://localhost:8080)
+* `yarn play:local:tournament`: connects to the `tournament` room on your [local poker server](http://localhost:8080)
+* `yarn play:online:training`: connects to the `training` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
+* `yarn play:online:freeplay`: connects to the `freeplay` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
+* `yarn play:online:tournament`: connects to the `tournament` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
 
 Note that the player name must be provided as an argument after the `yarn`-command.
 
@@ -89,6 +91,9 @@ import {
     isSameRank, 
     isSameCard, 
     isSameHand,
+
+    // State of the table, pre flop, flopo, turn, river
+    tableStates,
 } from '@cygni/poker-client-api';
 ```
 
@@ -185,6 +190,32 @@ The game state object contains the following methods:
 * `getSmallBlindAmount()`: get the small blind amount
 * `getBigBlindAmount()`: get the big blind amount
 * `getMyChips()`: get my chip count
+
+
+In order to e.g. get the current table status the following code can be used:
+
+```javascript
+import { 
+    // State of the table, pre flop, flopo, turn, river
+    tableStates,
+} from '@cygni/poker-client-api';
+
+// Setup bot...
+
+const status = bot.getGameState().getTableStatus();
+
+if (status === tableStates.flop) {
+    // do flop stuff
+}
+```
+
+The table statuses are:
+
+* `preflop`: when you have been dealt your two cards
+* `flop`: after the flop, but before the turn
+* `turn`: after the turn, but before the river
+* `river`: after the river, but before the showdown
+* `showdown`: the showdown is a situation when, if more than one player remains after the last betting round, remaining players expose and compare their hands to determine the winner or winners
 
 ## Evaluation of poker hands
 The client API contains a utility for evaluating poker hands. It can be imported as `evaluator` and works like this.
