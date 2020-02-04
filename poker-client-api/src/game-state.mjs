@@ -1,5 +1,5 @@
 import emitters from 'events';
-import { events, tableStates } from './protocol.mjs';
+import { events } from './protocol.mjs';
 
 const sortPlayersByChipCount = (players) => {
     return players.map(p => p).sort((left, right) => {

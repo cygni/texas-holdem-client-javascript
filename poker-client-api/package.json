@@ -9,7 +9,8 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "lint": "eslint ./src --ext mjs,js --fix"
     },
     "devDependencies": {
         "eslint": "^6.8.0",

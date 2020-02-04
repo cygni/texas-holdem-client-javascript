@@ -13,6 +13,9 @@
         "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node my-bot/src/index.mjs",
         "test:api": "cd poker-client-api && yarn test",
         "test:bot": "cd my-bot && yarn test",
-        "test": "yarn test:bot"
+        "test": "yarn test:bot",
+        "lint:api": "cd poker-client-api && yarn lint",
+        "lint:bot": "cd my-bot && yarn lint",
+        "lint": "yarn lint:api && yarn lint:bot"
     }
 }
