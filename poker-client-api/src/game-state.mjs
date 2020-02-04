@@ -169,6 +169,7 @@ export const setupGameState = ({ name }) => {
 
 
         getTableId: () => playerState.tableId,
+        getTableState: () => playerState.table.state,
         getCommunityCards: () => playerState.communityCards,
         getPotTotal: () => playerState.potTotal,
         getSmallBlindAmount: () => playerState.table.smallBlindAmount,
