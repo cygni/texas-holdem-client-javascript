@@ -3,7 +3,7 @@ version: '3.2'
 services:
   # Poker server (docker-compose up poker-server)
   poker-server:
-    image: "cygni/texasholdem:server-1.1.22.2"
+    image: "cygni/texasholdem:server-1.1.23"
     ports:
       - "8080:80"
       - "4711:4711"
