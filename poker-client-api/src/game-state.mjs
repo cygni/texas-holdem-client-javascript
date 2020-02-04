@@ -1,5 +1,5 @@
 import emitters from 'events';
-import { events } from './protocol.mjs';
+import { events, tableStates } from './protocol.mjs';
 
 const sortPlayersByChipCount = (players) => {
     return players.map(p => p).sort((left, right) => {
@@ -90,7 +90,8 @@ export const setupGameState = ({ name }) => {
     });
 
     gameStateEmitter.on(events.PlayIsStartedEvent, (event) => {
-        playerState.isPlaying = true;
+
+        playerState.isPlaying = event.players.map(player => player.name).filter(n => n === name);
         playerState.isTableDone = false;
         playerState.tableId = event.tableId;
         playerState.myCards = [];
@@ -106,7 +107,7 @@ export const setupGameState = ({ name }) => {
         playerState.table.smallBlindPlayer = event.smallBlindPlayer;
         playerState.table.bigBlindPlayer = event.bigBlindPlayer;
 
-        playerState.amount = getMyPlayer().chipCount;
+        playerState.amount = getMyPlayer() ? getMyPlayer().chipCount : 0;
 
     });
 
@@ -114,11 +115,12 @@ export const setupGameState = ({ name }) => {
         event.playersShowDown.map(playerShowDown => playerShowDown.player).forEach(p => {
             getTablePlayer(p.name).chipCount = p.chipCount;
         });
-        playerState.amount = getMyPlayer().chipCount;
+        playerState.amount = getMyPlayer() ? getMyPlayer().chipCount : 0;
     });
 
     gameStateEmitter.on(events.TableChangedStateEvent, (event) => {
         playerState.table.state = event.state;
+        //event.state;
     });
 
     gameStateEmitter.on(events.TableIsDoneEvent, (event) => {
@@ -157,6 +159,7 @@ export const setupGameState = ({ name }) => {
         hasPlayerGoneAllIn,
         getInvestmentInPotFor,
 
+        amIStillInGame: () => playerState.isPlaying,
         amIWinner: () => playerState.winner && playerState.winner.name === getMyPlayerName(),
         amIDealerPlayer: () => playerState.table.dealer === getMyPlayerName(),
         amISmallBlindPlayer: () => playerState.table.smallBlindPlayer === getMyPlayerName(),
@@ -169,6 +172,7 @@ export const setupGameState = ({ name }) => {
 
 
         getTableId: () => playerState.tableId,
+        getTableState: () => playerState.table.state,
         getCommunityCards: () => playerState.communityCards,
         getPotTotal: () => playerState.potTotal,
         getSmallBlindAmount: () => playerState.table.smallBlindAmount,

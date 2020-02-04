@@ -9,7 +9,9 @@ const bot = createBot({ name: getNameFromCommandLine() });
 // All events are described in the README
 bot.on(events.PlayIsStartedEvent, (event) => {
     console.log(`${bot.getGameState().getMyPlayerName()} got a PlayIsStartedEvent, tableId: ${bot.getGameState().getTableId()}`);
-    console.log('I got chips:', bot.getGameState().getMyChips());
+    if (bot.getGameState().amIStillInGame()) {
+        console.log('I got chips:', bot.getGameState().getMyChips());
+    }
     console.log('Player count:', event.players.length);
 });
 

@@ -168,6 +168,7 @@ The game state object contains the following methods:
 * `hasPlayerFolded(name)`: checks if a named player has folded
 * `hasPlayerGoneAllIn(name)`: checks if a named player has gone all in
 * `getInvestmentInPotFor(name)`: gets the pot for a named player (not the chipcount
+* `amIStillInGame()`: true if my player is still in the game (i.e. still has chips to play for)
 * `amIWinner()`: true if my player is the winner
 * `amIDealerPlayer()`: true if my player is the dealer
 * `amISmallBlindPlayer()`: true if my player has the small blind
@@ -179,6 +180,7 @@ The game state object contains the following methods:
 * `getCommunityCards()`: get the community cards
 * `getMyCardsAndCommunityCards()`: get my cards AND the community cards
 * `getTableId()`: get the table id
+* `getTableStatus()`: get the current status of the table (PRE_FLOP, FLOP, TURN, RIVER, SHOWDOWN)
 * `getPotTotal()`: get the pot total
 * `getSmallBlindAmount()`: get the small blind amount
 * `getBigBlindAmount()`: get the big blind amount
