@@ -179,6 +179,7 @@ The game state object contains the following methods:
 * `getCommunityCards()`: get the community cards
 * `getMyCardsAndCommunityCards()`: get my cards AND the community cards
 * `getTableId()`: get the table id
+* `getTableStatus()`: get the current status of the table (PRE_FLOP, FLOP, TURN, RIVER, SHOWDOWN)
 * `getPotTotal()`: get the pot total
 * `getSmallBlindAmount()`: get the small blind amount
 * `getBigBlindAmount()`: get the big blind amount
