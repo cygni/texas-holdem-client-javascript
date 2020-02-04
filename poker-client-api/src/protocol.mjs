@@ -86,6 +86,14 @@ export const rooms = {
     }
 };
 
+export const tableStates = {
+    preflop: 'PRE_FLOP',
+    flop: 'FLOP',
+    turn: 'TURN',
+    river: 'RIVER',
+    showdown: 'SHOWDOWN',
+};
+
 export const suits = {
     clubs: 'CLUBS',
     diamonds: 'DIAMONDS',

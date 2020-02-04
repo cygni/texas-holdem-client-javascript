@@ -1,5 +1,5 @@
 import emitters from 'events';
-import { events } from './protocol.mjs';
+import { events, tableStates } from './protocol.mjs';
 
 const sortPlayersByChipCount = (players) => {
     return players.map(p => p).sort((left, right) => {
@@ -107,7 +107,7 @@ export const setupGameState = ({ name }) => {
         playerState.table.smallBlindPlayer = event.smallBlindPlayer;
         playerState.table.bigBlindPlayer = event.bigBlindPlayer;
 
-        playerState.amount = getMyPlayer().chipCount;
+        playerState.amount = getMyPlayer() ? getMyPlayer().chipCount : 0;
 
     });
 
@@ -115,11 +115,12 @@ export const setupGameState = ({ name }) => {
         event.playersShowDown.map(playerShowDown => playerShowDown.player).forEach(p => {
             getTablePlayer(p.name).chipCount = p.chipCount;
         });
-        playerState.amount = getMyPlayer().chipCount;
+        playerState.amount = getMyPlayer() ? getMyPlayer().chipCount : 0;
     });
 
     gameStateEmitter.on(events.TableChangedStateEvent, (event) => {
         playerState.table.state = event.state;
+        //event.state;
     });
 
     gameStateEmitter.on(events.TableIsDoneEvent, (event) => {
