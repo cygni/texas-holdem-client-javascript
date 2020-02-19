@@ -248,6 +248,18 @@ const value = evaluator.compare(
 const w = evaluator.winners([hand1, hand2, hand3]);
 ```
 
+The rankning of hands is as follows:
+* `Royal flush`: 10
+* `Straight flush`: 9
+* `Four of a kind`: 8
+* `Full House`: 7
+* `Flush`: 6
+* `Straight`: 5
+* `Three of a kind`: 4
+* `Two pair`: 3
+* `Pair`: 2
+* `High card`: 1
+
 So, how do you create a hand? Well, you simply create an array with cards, and a card has a rank and a suit.
 
 ```javascript
