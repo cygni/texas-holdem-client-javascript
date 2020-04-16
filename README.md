@@ -233,7 +233,7 @@ const hand = evaluator.evaluate(gameState.getMyCardsAndCommunityCards());
 const ranking = hand.ranking();
 
 // The name of the hand, match this against the hands-enum
-if (hand.name() === hands.royalFlush) {
+if (hand.name() === evaluator.hands.royalFlush) {
     console.log('We have a royal flush');
 }
 
