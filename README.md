@@ -92,7 +92,7 @@ import {
     isSameCard, 
     isSameHand,
 
-    // State of the table, pre flop, flopo, turn, river
+    // And another enum, the tate of the table, pre flop, flopo, turn, river
     tableStates,
 } from '@cygni/poker-client-api';
 ```
