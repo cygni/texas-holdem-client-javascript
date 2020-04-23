@@ -138,8 +138,15 @@ bot.on(events.PlayIsStartedEvent, (event) => {
 });
 ```
 
+Please note that you typically use events for logging, or for building your own super smart state. The built in game state does this for and you can use it by invoking:
+
+```javascript
+bot.getGameState();
+```
+
+
 ## Actions
-Ok, so it is not only about listening to events. Sometimes your player must make a move such as `fold`, `raise` etc. This is called an action handler and you register your handler like this:
+Ok, so it is not only about listening to events. The main thing with the bot is to actually make some moves. Sometimes your player must make a move such as `fold`, `raise` etc. This is called an action handler and you register your handler like this:
 
 ```javascript
 bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
@@ -148,8 +155,9 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
     // Example, if a check is not possible, the checkAction is undefined
     // Each action contains the name of the action (actionType) and the amount required.
 
-    // This bot goes all in every time possible (or folds when the player can't go all in).
-    return allInAction || foldAction;
+    // This bot checks if possible, otherwise it goes all in, if that is not possible the bot folds.
+    // You can always fold and you can always go all in. But you can't always check.
+    return checkAction || allInAction || foldAction;
 });
 ```
 
@@ -330,22 +338,29 @@ The following code can be used as inspiration on how to implement your bot. It u
 
 ```javascript
 bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
-    const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
+    
+    // First, define some function with various actions
     
     // All in on good cards
     const selectHighRankingAction = () => allInAction;
+
+    // Raise, call - if possible
+    const selectMidRankingAction = () => raiseAction || callAction || checkAction || foldAction;
+
+    // Try to check, call etc.
+    const selectLowRankingAction = () => checkAction || callAction || raiseAction || allInAction || foldAction;
+
+
+    // Now, get the ranking and invoke the "correct function"
+    const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
     if (ranking > 5) {
         return selectHighRankingAction();
     }
 
-    // Raise, call - if possible
-    const selectMidRankingAction = () => raiseAction || callAction || checkAction || foldAction;
     if (ranking > 3) {
         return selectMidRankingAction();
     }
 
-    // Try to check, call etc.
-    const selectLowRankingAction = () => checkAction || callAction || raiseAction || allInAction || foldAction;
     return selectLowRankingAction();
 });
 ```
