@@ -1,6 +1,6 @@
 import Deck from 'card-deck';
 
-import { suits, ranks } from './protocol.mjs';
+import { suits, ranks } from './protocol.js';
 
 const allCardsForSuit = suit => Object.values(ranks).map(rank => ({ suit, rank }));
 const allCards = () => Object.values(suits).map(allCardsForSuit).flat();

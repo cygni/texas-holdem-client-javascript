@@ -1,7 +1,5 @@
 // This is the home of your bot.
-
-import { createBot, events, getNameFromCommandLine } from '@cygni/poker-client-api';
-import { evaluator } from '@cygni/poker-client-api';
+import { createBot, events, getNameFromCommandLine, evaluator } from '@cygni/poker-client-api';
 
 // Create the bot, name it by using the command line argument (yarn play:<env>:<room> player-name)
 const bot = createBot({ name: getNameFromCommandLine() });

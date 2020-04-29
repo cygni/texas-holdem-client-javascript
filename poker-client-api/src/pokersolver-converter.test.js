@@ -1,7 +1,5 @@
-// eslint-disable-next-line no-undef
-const esmImport = require('esm')(module);
-const { toSolverCard, toTexasCard } = esmImport('./pokersolver-converter.mjs');
-const { ranks, suits } = esmImport('./protocol.mjs');
+import { toSolverCard, toTexasCard } from './pokersolver-converter.js';
+import { ranks, suits } from './protocol.js';
 
 describe('Testing conversion between Texas protocol and pokersolver hands', () => {
     it('Convert from texas protocol', () => {

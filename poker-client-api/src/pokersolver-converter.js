@@ -1,4 +1,4 @@
-import { ranks, suits } from './protocol.mjs';
+import { ranks, suits } from './protocol.js';
 
 const solverSuits = {
     clubs: 'c',

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
-const esmImport = require('esm')(module);
-const { createDeck, isSameHand } = esmImport('./deck.mjs');
-const { suits, ranks } = esmImport('./protocol.mjs');
+// const esmImport = require('esm')(module);
+import { createDeck, isSameHand } from './deck.js';
+import { suits, ranks } from './protocol.js';
 
 
 describe('Test deck functions', () => {

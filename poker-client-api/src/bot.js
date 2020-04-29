@@ -1,7 +1,7 @@
 import net from 'net';
 import emitters from 'events';
 
-import { setupGameState } from './game-state.mjs';
+import { setupGameState } from './game-state.js';
 import {
     extractParts,
     jsonDelimiter,
@@ -11,7 +11,7 @@ import {
     rooms,
     requests,
     createActionResponse,
-} from './protocol.mjs';
+} from './protocol.js';
 
 const isActionRequest = ({ request }) => request.name === requests.actionRequest;
 

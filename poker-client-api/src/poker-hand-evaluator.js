@@ -1,6 +1,6 @@
 import solver from 'pokersolver';
 
-import { toTexasCard, toSolverHand } from './pokersolver-converter.mjs';
+import { toTexasCard, toSolverHand } from './pokersolver-converter.js';
 
 const Hand = solver.Hand;
 

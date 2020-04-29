@@ -1,7 +1,5 @@
-// eslint-disable-next-line no-undef
-const esmImport = require('esm')(module);
-const { evaluator } = esmImport('./poker-hand-evaluator.mjs');
-const { ranks, suits } = esmImport('./protocol.mjs');
+import { evaluator } from './poker-hand-evaluator.js';
+import { ranks, suits } from './protocol.js';
 
 const royalFlush = [
     { rank: ranks.ace, suit: suits.clubs },
