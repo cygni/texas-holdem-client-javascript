@@ -5,25 +5,29 @@ import { toTexasCard, toSolverHand } from './pokersolver-converter.mjs';
 const Hand = solver.Hand;
 
 const hands = {
-    highCard: 'High Card',
-    pair: 'Pair',
-    twoPair: 'Two Pair',
-    threeOfAKind: 'Three of a Kind',
-    straight: 'Straight',
-    flush: 'Flush',
-    fullHouse: 'Full House',
-    fourOfAKind: 'Four of a Kind',
-    straightFlush: 'Straight Flush',
-    royalFlush: 'Royal Flush',
+    highCard: { name: 'High Card', ranking: 1 },
+    pair: { name: 'Pair', ranking: 2 },
+    twoPair: { name: 'Two Pair', ranking: 3 },
+    threeOfAKind: { name: 'Three of a Kind', ranking: 4 },
+    straight: { name: 'Straight', ranking: 5 },
+    flush: { name: 'Flush', ranking: 6 },
+    fullHouse: { name: 'Full House', ranking: 7 },
+    fourOfAKind: { name: 'Four of a Kind', ranking: 8 },
+    straightFlush: { name: 'Straight Flush', ranking: 9 },
+    royalFlush: { name: 'Royal Flush', ranking: 10 },
 };
 
-const isRoyalFlush = (solved) => solved.name === hands.straightFlush && solved.descr === hands.royalFlush;
+// const handFromName = (name) => Object
+//     .values(hands)
+//     .find(hand => hand.name === name);
 
-const fromSolved = solved => {
+const isRoyalFlush = (solved) => solved.name === hands.straightFlush.name && solved.descr === hands.royalFlush.name;
+
+const fromSolved = (solved) => {
     const evaluated = {
         name: () => {
             if (isRoyalFlush(solved)) {
-                return hands.royalFlush;
+                return hands.royalFlush.name;
             }
             return solved.name;
         },

@@ -129,19 +129,19 @@ const highCard = [
 
 describe('Test card hands', () => {
     it('Verify hand names', () => {
-        expect(evaluator.evaluate(highCard).name()).toEqual(evaluator.hands.highCard);
-        expect(evaluator.evaluate(pair).name()).toEqual(evaluator.hands.pair);
-        expect(evaluator.evaluate(fullPair).name()).toEqual(evaluator.hands.pair);
-        expect(evaluator.evaluate(twoPair).name()).toEqual(evaluator.hands.twoPair);
-        expect(evaluator.evaluate(threeOfAKind).name()).toEqual(evaluator.hands.threeOfAKind);
-        expect(evaluator.evaluate(straight).name()).toEqual(evaluator.hands.straight);
-        expect(evaluator.evaluate(straight2).name()).toEqual(evaluator.hands.straight);
-        expect(evaluator.evaluate(flush).name()).toEqual(evaluator.hands.flush);
-        expect(evaluator.evaluate(fullHouse).name()).toEqual(evaluator.hands.fullHouse);
-        expect(evaluator.evaluate(fourOfAKind).name()).toEqual(evaluator.hands.fourOfAKind);
-        expect(evaluator.evaluate(straightFlush).name()).toEqual(evaluator.hands.straightFlush);
-        expect(evaluator.evaluate(straightFlush2).name()).toEqual(evaluator.hands.straightFlush);
-        expect(evaluator.evaluate(royalFlush).name()).toEqual(evaluator.hands.royalFlush);
+        expect(evaluator.evaluate(highCard).name()).toEqual(evaluator.hands.highCard.name);
+        expect(evaluator.evaluate(pair).name()).toEqual(evaluator.hands.pair.name);
+        expect(evaluator.evaluate(fullPair).name()).toEqual(evaluator.hands.pair.name);
+        expect(evaluator.evaluate(twoPair).name()).toEqual(evaluator.hands.twoPair.name);
+        expect(evaluator.evaluate(threeOfAKind).name()).toEqual(evaluator.hands.threeOfAKind.name);
+        expect(evaluator.evaluate(straight).name()).toEqual(evaluator.hands.straight.name);
+        expect(evaluator.evaluate(straight2).name()).toEqual(evaluator.hands.straight.name);
+        expect(evaluator.evaluate(flush).name()).toEqual(evaluator.hands.flush.name);
+        expect(evaluator.evaluate(fullHouse).name()).toEqual(evaluator.hands.fullHouse.name);
+        expect(evaluator.evaluate(fourOfAKind).name()).toEqual(evaluator.hands.fourOfAKind.name);
+        expect(evaluator.evaluate(straightFlush).name()).toEqual(evaluator.hands.straightFlush.name);
+        expect(evaluator.evaluate(straightFlush2).name()).toEqual(evaluator.hands.straightFlush.name);
+        expect(evaluator.evaluate(royalFlush).name()).toEqual(evaluator.hands.royalFlush.name);
     });
 
     it('Verify rankings', () => {
@@ -194,10 +194,10 @@ describe('Test card hands', () => {
 
     it('Verify winners', () => {
         const r1 = evaluator.winners([pair, higherPair, twoPair]);
-        expect(evaluator.evaluate(r1[0]).name()).toEqual(evaluator.hands.twoPair);
+        expect(evaluator.evaluate(r1[0]).name()).toEqual(evaluator.hands.twoPair.name);
 
         const r2 = evaluator.winners([highCard, pair, higherPair]);
-        expect(evaluator.evaluate(r2[0]).name()).toEqual(evaluator.hands.pair);
+        expect(evaluator.evaluate(r2[0]).name()).toEqual(evaluator.hands.pair.name);
 
         expect(r2.length).toEqual(1);
     });

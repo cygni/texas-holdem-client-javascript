@@ -7,7 +7,35 @@ import { evaluator } from '@cygni/poker-client-api';
 const bot = createBot({ name: getNameFromCommandLine() });
 
 // From here on you can do your magic!
+
+// Register the action handler, this method is invoked by the game engine when it is 
+// time for your bot to make a move.
+bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
+    // Do magic, and return your action. 
+    // Note that some of the actions may be unset.
+    // Example, if a check is not possible, the checkAction is undefined
+    // Each action contains the name of the action (actionType) and the amount required.
+
+    console.log('ActionHandler: ', { raiseAction, callAction, checkAction, foldAction, allInAction });
+
+    // Evaluate a hand. The game state contains a bunch of utility functions that you 
+    // can query to get info about the game.
+    const gameState = bot.getGameState();
+    const evaluatedHand = evaluator.evaluate(gameState.getMyCardsAndCommunityCards());
+
+    // Get the ranking of your hand. The ranking for two pair is e.g. lower than the ranking for three of a kind.
+    const handRanking = evaluatedHand.ranking();
+    const myCardsInfo = gameState.getMyCardsAndCommunityCards().map((card) => ` ${card.rank} of ${card.suit}`);
+    
+    console.log(`My cards:${myCardsInfo}`);
+    console.log(`My hand: ${evaluatedHand.name()}, handRanking: ${handRanking}`);
+
+    // This bot is very aggressive - it always tries to raise, or go all in
+    return raiseAction || allInAction || callAction || checkAction || foldAction;
+});
+
 // All events are described in the README
+// Usually, events are simply used to save your own state or for logging purposes
 bot.on(events.PlayIsStartedEvent, (event) => {
     console.log(`${bot.getGameState().getMyPlayerName()} got a PlayIsStartedEvent, tableId: ${bot.getGameState().getTableId()}`);
     if (bot.getGameState().amIStillInGame()) {
@@ -38,30 +66,6 @@ bot.on(events.TableIsDoneEvent, (event) => {
     console.log('Table is done event ', event.players);
 });
 
-// Register the action handler, this method is invoked by the game engine when it is 
-// time for your bot to make a move.
-bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
-    // Do magic, and return your action. 
-    // Note that some of the actions may be unset.
-    // Example, if a check is not possible, the checkAction is undefined
-    // Each action contains the name of the action (actionType) and the amount required.
-
-    console.log('ActionHandler: ', { raiseAction, callAction, checkAction, foldAction, allInAction });
-
-    // Evaluate a hand
-    const gameState = bot.getGameState();
-    const hand = evaluator.evaluate(gameState.getMyCardsAndCommunityCards());
-
-    // Get the ranking of your hand. The ranking for two pair is e.g. lower than the ranking for three of a kind.
-    const ranking = hand.ranking();
-    const myCards = gameState.getMyCardsAndCommunityCards().map((card) => ` ${card.rank} of ${card.suit}`);
-    
-    console.log(`My cards:${myCards}`);
-    console.log(`My hand: ${hand.name()}, rank: ${ranking}`);
-
-    // This bot is very aggressive, goes all in every time possible (or raises, calls, checks, folds).
-    return allInAction || raiseAction || callAction || checkAction || foldAction;
-});
-
+// Finally, connect the bot to the server
 bot.connect();
 
