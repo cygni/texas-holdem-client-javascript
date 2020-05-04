@@ -32,6 +32,9 @@ export const createActionResponse = ({ action, request }) => ({
     action
 });
 
+/**
+ * Enum with names of all actions that your bot may do during a game.
+ */
 export const actions = {
     raise: 'RAISE',
     call: 'CALL',
@@ -40,6 +43,9 @@ export const actions = {
     allIn: 'ALL_IN',
 };
 
+/**
+ * Enum containing the names of all the events that may occur during a game.
+ */
 export const events = {
     RegisterForPlayResponse: 'RegisterForPlayResponse',
     PlayIsStartedEvent: 'PlayIsStartedEvent',
@@ -69,10 +75,30 @@ const TRAINING = 'TRAINING';
 const TOURNAMENT = 'TOURNAMENT';
 const FREEPLAY = 'FREEPLAY';
 
+/**
+ * "Enum" for the various rooms (actually functions). Values are training, tournament and freeplay.
+ */
 export const rooms = {
+    /**
+     * @returns The name of the training room where you train your bots against the training bots on the server.
+     */
     training: () => TRAINING,
+
+    /**
+     * @returns The name of the tournament room where you compete against other bots.
+     */
     tournament: () => TOURNAMENT,
+
+    /**
+     * @returns The name of the freeplay room where you can train your bots in tournament-like style (rarely used).
+     */
     freeplay: () => FREEPLAY,
+
+    /**
+     * Used to validate that a correct room has been entered.
+     * @param room The name of the room
+     * @returns true if valid, otherwise an exception is thrown
+     */
     validate: (room) => {
         switch (room) {
         case TRAINING:
@@ -86,6 +112,9 @@ export const rooms = {
     }
 };
 
+/**
+ * Enum for the various table states. Values are preflop, flop, turn, river, showdown.
+ */
 export const tableStates = {
     preflop: 'PRE_FLOP',
     flop: 'FLOP',
@@ -94,6 +123,10 @@ export const tableStates = {
     showdown: 'SHOWDOWN',
 };
 
+/**
+ * Enum for card suits. A card consists of a suit (e.g. hearts) and a rank (e.g. four).
+ * The suits are clubs, diamonds, spades and hearts.
+ */
 export const suits = {
     clubs: 'CLUBS',
     diamonds: 'DIAMONDS',
@@ -101,7 +134,12 @@ export const suits = {
     hearts: 'HEARTS',
 };
 
+/**
+ * Enum for card ranks (NOT hand rankings). The card rank basically describes the value of the card
+ * where the highest is the ace, and the lowest is the deuce (value 2).
+ */
 export const ranks = {
+    /** Deuce, or simply a 2 */
     deuce: 'DEUCE',
     three: 'THREE',
     four: 'FOUR',

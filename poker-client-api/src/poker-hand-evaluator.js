@@ -17,10 +17,6 @@ const hands = {
     royalFlush: { name: 'Royal Flush', ranking: 10 },
 };
 
-// const handFromName = (name) => Object
-//     .values(hands)
-//     .find(hand => hand.name === name);
-
 const isRoyalFlush = (solved) => solved.name === hands.straightFlush.name && solved.descr === hands.royalFlush.name;
 
 const fromSolved = (solved) => {
@@ -74,8 +70,42 @@ const compare = (texasHand1, texasHand2) => {
     return solved1.compare(solved2);
 };
 
-const evaluator = {
-    hands, evaluate, winners, compare
-};
+/**
+ * The evaluator is used to analyze cards. The main function is named "evaluate" and can give you
+ * a ranking for your cards.
+ */
+export const evaluator = {
+    /**
+     * An enum of available poker hands and their ranking.
+     * 
+     * The highest hand is the Royal Flush with the ranking 10.
+     * The lowest hand is the High Card with a ranking of 1.
+     */
+    hands,
 
-export { evaluator };
+    /**
+     * Evaluates the provided hand to an 'evaluated hand' which simply can give you
+     * the ranking, and the name of the hand.
+     * 
+     * Example: const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
+     * 
+     * @param {Array} cards An array of cards, typically your cards, and the community cards.
+     * @returns {Object} An evaluated hand containing the ranking, and the name of the hand.
+     */
+    evaluate,
+
+    /**
+     * From a set of hands, find the winners. Useful when comparing hands against each other.
+     * @param {Array} texasHands An array of hands (and a hand is an array of cards).
+     * @returns {Array} An array of the winning hands. Usually just one hand.
+     */
+    winners,
+
+    /**
+     * Compare two hands against each other. If the first hand is the winner then -1 is returned. 
+     * If the second hand is the winner, +1 is returned. Equal hands returns 0.
+     * 
+     * @returns -1, 0 or +1
+     */
+    compare
+};

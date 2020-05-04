@@ -13,7 +13,6 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
     // Note that some of the actions may be unset.
     // Example, if a check is not possible, the checkAction is undefined
     // Each action contains the name of the action (actionType) and the amount required.
-
     console.log('ActionHandler: ', { raiseAction, callAction, checkAction, foldAction, allInAction });
 
     // Evaluate a hand. The game state contains a bunch of utility functions that you 

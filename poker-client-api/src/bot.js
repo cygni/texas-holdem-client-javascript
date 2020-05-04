@@ -150,6 +150,16 @@ const setupPossibleActions = (possibleActions) => {
     return { raiseAction, callAction, checkAction, foldAction, allInAction };
 };
 
+/**
+ * Creates a bot with the provided name. The bot must do (at least) the following:
+ * 
+ * 1. Register an action handler by invoking @see {registerActionHandler}.
+ * 2. Connect to the server by invoking @see {connect}.
+ * 
+ * In addition to this the bot can access all of the events by listening to them. Furthermore, 
+ * the bot can at any time access the game state by invoking @see {getGameState}.
+ * @param {string} name The name of your marvelous poker bot.
+ */
 export const createBot = ({ name }) => {
     const { gameState, gameStateEmitter } = setupGameState({ name });
 
@@ -168,6 +178,14 @@ export const createBot = ({ name }) => {
     };
 
     return {
+        /**
+         * Connect to the server. Here you specify the host, port and poker room.
+         * 
+         * @see rooms
+         * @param {string} host the poker host, defaults to 'host.docker.internal' which is the docker host
+         * @param {number} port the port, defaults to 4711
+         * @param {string} room the poker room, defaults to the training room. To select other rooms see the `rooms` enum
+         */
         connect: (config = {
             host: process.env.POKER_HOST || 'host.docker.internal',
             port: process.env.POKER_PORT || 4711,
@@ -176,11 +194,36 @@ export const createBot = ({ name }) => {
             const client = setupClient({ ...config, name, dispatcher });
             client.connect();
         },
+
+        /**
+         * Returns the game state which holds information about the current game. The game state is
+         * important to find out the state of the players and the table. E.g. the functions amIBigBlind(),
+         * getMyCards() etc.
+         */
         getGameState: () => gameState,
+
+        /**
+         * Registers your action handler which is the piece of code where you place your logic. Here
+         * you should provide a callback that will be invoked when it is your turn to do any actions.
+         * 
+         * The parameters sent to the callback are: { allInAction, raiseAction, callAction, checkAction, foldAction }.
+         * If an action can not be performed (e.g if you cant check) that action will be undefined.
+         * 
+         * @param {function} handler The callback that will be invoked where you place your logic.
+         */
         registerActionHandler: (handler) => {
             console.log('Registering action handler');
             actionRequestHandler.handleActionRequest = handler;
         },
+
+        /**
+         * Registers a listener for an event.
+         * 
+         * Usage: bot.on(events.PlayIsStartedEvent, (event) => { ... });
+         * 
+         * @param {string} name the event name, all events are listed in the `events` enum
+         * @param {function} callback the listener (a callback)
+         */
         on: (name, callback) => {
             // Return values in callbacks are completely ignored as per the EventEmitter-pattern.
             playerEmitter.on(name, callback);

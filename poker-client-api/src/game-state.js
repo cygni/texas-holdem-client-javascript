@@ -150,33 +150,187 @@ export const setupGameState = ({ name }) => {
         return player ? player.potInvestment : 0;
     };
 
+    /**
+     * The game state holds various convenience methods for keeping track of the game.
+     */
     const gameState = {
+        /**
+         * Gets the name of my player (my bot name)
+         */
         getMyPlayerName,
+
+        /**
+         * Gets info about a specific player. The provided info contains the following attributes:
+         * - name: the name of the player
+         * - chipCount: the player's chip count
+         * - potInvestment: how much the player has invested in the pot
+         * - folder: has the player folded (true/false)
+         * - allIn: has the player gone all in (true/false)
+         * 
+         * @param {string} name The name of the player.
+         */
         getTablePlayer,
+
+        /**
+         * Gets a list of all the players. Each player has the following attributes:
+         * - name: the name of the player
+         * - chipCount: the player's chip count
+         * - potInvestment: how much the player has invested in the pot
+         * - folder: has the player folded (true/false)
+         * - allIn: has the player gone all in (true/false)
+         */
         getTablePlayers: () => playerState.table.players,
+
+        /**
+         * Gets your player i.e. the bot player. Your player has the following attributes:
+         * - name: the name of the player
+         * - chipCount: the player's chip count
+         * - potInvestment: how much the player has invested in the pot
+         * - folder: has the player folded (true/false)
+         * - allIn: has the player gone all in (true/false)
+         */
         getMyPlayer,
+
+        /**
+         * Returns true if the player with the provided name has folded.
+         * 
+         * @param {string} name The name of the player
+         * @returns {boolean} True if the player with the provided name has folded
+         */
         hasPlayerFolded,
+
+        /**
+         * Returns true if the player with the provided name has gone all in.
+         * 
+         * @param {string} name The name of the player
+         * @returns {boolean} True if the player with the provided name has gone all in
+         */
         hasPlayerGoneAllIn,
+
+        /**
+         * Gets the pot investment for the specified player.
+         * 
+         * @param {string} name The name of the player
+         * @returns {number} The pot investment
+         */
         getInvestmentInPotFor,
 
+        /**
+         * Returns true if your bot is still in the game.
+         * 
+         * @returns {boolean} True if your bot is still in the game
+         */
         amIStillInGame: () => playerState.isPlaying,
+
+        /**
+         * @returns {boolean} true if your bot is the winner
+         */
         amIWinner: () => playerState.winner && playerState.winner.name === getMyPlayerName(),
+
+        /**
+         * @returns {boolean} true if your bot is the current dealer
+         */
         amIDealerPlayer: () => playerState.table.dealer === getMyPlayerName(),
+
+        /**
+         * @returns {boolean} true if your bot has the small bline
+         */
         amISmallBlindPlayer: () => playerState.table.smallBlindPlayer === getMyPlayerName(),
+
+        /**
+         * @returns {boolean} true if your bot has the big blind
+         */
         amIBigBlindPlayer: () => playerState.table.bigBlindPlayer === getMyPlayerName(),
+
+        /**
+         * @returns {boolean} true if your bot has folded
+         */
         haveIFolded: () => hasPlayerFolded(getMyPlayerName()),
+
+        /**
+         * @returns {boolean} true if your bot has gone all in
+         */
         haveIGoneAllIn: () => hasPlayerGoneAllIn(getMyPlayerName()),
+
+        /**
+         * @returns {number} get your investment in the pot
+         */
         getMyInvestmentInPot: () => getInvestmentInPotFor(getMyPlayerName()),
+
+        /**
+         * Returns an array containing your two hidden cards. Each card contains the attributes rank and suit.
+         * @returns {Array} Your two hidden cards
+         */
         getMyCards: () => [...playerState.myCards],
+        
+        /**
+         * Returns an array containing only the community cards i.e. the cards on the table excluding your two hidden cards.
+         * Each card contains the attributes rank and suit.
+         * 
+         * @returns {Array} Your cards AND the community cards
+         */
+        getCommunityCards: () => playerState.communityCards,
+
+        /**
+         * Returns an array containing your two hidden cards AND the community cards (the open cards on the table).
+         * Each card contains the attributes rank and suit.
+         * 
+         * @returns {Array} Your cards AND the community cards
+         */
         getMyCardsAndCommunityCards: () => [...playerState.myCards, ...playerState.communityCards],
 
-
+        /**
+         * @returns {number} The table id, useful for logging or when you need to trace a game in the UI
+         */
         getTableId: () => playerState.tableId,
+
+        /**
+         * Gets the current table state which can be pre flop, flop, turn, river or showdown. The states
+         * are defined in the enum named tableStates.
+         * 
+         * Example:
+         * import { 
+         *     tableStates,
+         * } from '@cygni/poker-client-api';
+         * 
+         * // Setup bot...
+         * 
+         * const status = bot.getGameState().getTableState();
+         * if (status === tableStates.flop) {
+         *     // do flop stuff
+         * }
+         * 
+         * @returns {Object} The table state, defined in the enum tableStates
+         */
         getTableState: () => playerState.table.state,
-        getCommunityCards: () => playerState.communityCards,
+
+        /**
+         * Gets the total value of the current pot.
+         * @returns The pot total
+         */
         getPotTotal: () => playerState.potTotal,
+
+        /**
+         * Get the value of the small blind. The small blind (and the big blind) is continuously raised
+         * so this value will increase over time.
+         * 
+         * @returns The small blind amount.
+         */
         getSmallBlindAmount: () => playerState.table.smallBlindAmount,
+
+        /**
+         * Get the value of the big blind. The big blind (and the small blind) is continuously raised
+         * so this value will increase over time.
+         * 
+         * @returns The big blind amount.
+         */
         getBigBlindAmount: () => playerState.table.bigBlindAmount,
+
+        /**
+         * Gets your total chip count i.e. how much money you have.
+         * 
+         * @returns Your chip count
+         */
         getMyChips: () => playerState.amount
     };
 
