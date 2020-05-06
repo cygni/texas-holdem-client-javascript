@@ -3,7 +3,7 @@ This repo contains the JavaScript client for the [Texas hold'em Botgame](https:/
 
 # About Texas hold'em
 You can read the rules of the game at [pokernews.com](https://www.pokernews.com/poker-rules/texas-holdem.htm).
-Check out the ranking of different [poker hands](pokerhands.md).
+Check out the ranking of different [poker hands](docs/pokerhands.md).
 
 ## Prerequisites
 * [Docker](https://hub.docker.com/?overlay=onboarding): Note that in order to install Docker for Windows or MacOS you need to create/have an account at dockerhub. It's free and quick to setup.
@@ -128,7 +128,7 @@ bot.connect({ host: 'some.server.com', port: 1234, room: rooms.training });
 Here you can see the `rooms` enum that holds definitions for the three different rooms – `training`, `freeplay`, and `tournament`.
 
 ## Events
-The events are specified in the client API under `events`. The documentation for events and responses are in [events.md](events.md)
+The events are specified in the client API under `events`. The documentation for events and responses are in [docs/events.md](docs/events.md)
 
 You listen to the events by using the `EventEmitter` pattern like this:
 
@@ -368,3 +368,5 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
     return selectLowRankingAction();
 });
 ```
+
+You can find some good example bots in our [tutorial section](docs/tutorials.md).

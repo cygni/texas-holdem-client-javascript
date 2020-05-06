@@ -153,8 +153,8 @@ const setupPossibleActions = (possibleActions) => {
 /**
  * Creates a bot with the provided name. The bot must do (at least) the following:
  * 
- * 1. Register an action handler by invoking @see {registerActionHandler}.
- * 2. Connect to the server by invoking @see {connect}.
+ * 1. Register an action handler by invoking @see {@link registerActionHandler}.
+ * 2. Connect to the server by invoking @see {@link connect}.
  * 
  * In addition to this the bot can access all of the events by listening to them. Furthermore, 
  * the bot can at any time access the game state by invoking @see {getGameState}.
