@@ -65,11 +65,11 @@ bot.registerActionHandler(({ foldAction, allInAction }) => {
     const gameState = bot.getGameState();
     const myCards = gameState.getMyCards();
 
-    const jackRankNumber = ranks.fromRankToNumber(ranks.jack);
-    const firstRankNumber = ranks.fromRankToNumber(myCards[0].rank);
-    const secondRankNumber = ranks.fromRankToNumber(myCards[1].rank);
+    const jack = ranks.fromRankToNumber(ranks.jack);
+    const first = ranks.fromRankToNumber(myCards[0].rank);
+    const second = ranks.fromRankToNumber(myCards[1].rank);
 
-    if ((firstRankNumber >= jackRankNumber) && (secondRankNumber >= jackRankNumber)) {
+    if ((first >= jack) && (second >= jack)) {
         return allInAction;
     }
 
@@ -104,7 +104,6 @@ const handleEverythingAfterPreFlop = ({ raiseAction, foldAction, allInAction }) 
     const communityRanking = evaluator.evaluate(communityCards).ranking();
 
     if (myRanking > communityRanking) {
-        console.log('Cards: ', myCardsAndCommunityCards);
         return raiseAction || allInAction;
     }
 
@@ -140,10 +139,10 @@ const handlePreFlop = ({ checkAction, callAction, foldAction }) => {
     const myCards = gameState.getMyCards();
 
     const jack = ranks.fromRankToNumber(ranks.jack);
-    const firstCardRankNumber = ranks.fromRankToNumber(myCards[0].rank);
-    const secondCardRankNumber = ranks.fromRankToNumber(myCards[1].rank);
+    const first = ranks.fromRankToNumber(myCards[0].rank);
+    const second = ranks.fromRankToNumber(myCards[1].rank);
 
-    if (firstCardRankNumber >= jack && secondCardRankNumber >= jack) {
+    if (first >= jack && second >= jack) {
         return checkAction || callAction || foldAction;
     }
 
