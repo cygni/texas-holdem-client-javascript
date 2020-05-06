@@ -1,4 +1,6 @@
-# Examples
+# Tutorials
+
+Below you can find some shorter tutorials that shows various aspect of the bot programming.
 
 * [Are my hidden cards a pair](#pair)
 * [Are my hidden cards suited?](#suited)
