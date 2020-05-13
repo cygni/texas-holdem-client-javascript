@@ -7,25 +7,19 @@
     "repository": "https://github.com/cygni/texas-holdem-client-javascript",
     "license": "MIT",
     "private": true,
-    "scripts": {
-        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.js",
-        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.js",
-        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.js",
-        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/index.js",
-        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node src/index.js",
-        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node src/index.js",
-        "play": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node src/montecarlo.js",
-        "test": "jest",
-        "lint": "eslint ./ --ext js,mjs --fix"
+    "engines": {
+        "node": ">=12.10.0"
     },
-    "devDependencies": {
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb-base": "^14.1.0",
-        "eslint-plugin-import": "^2.20.2",
-        "jest": "^25.5.1",
-        "@babel/core": "^7.9.0",
-        "@babel/preset-env": "^7.9.5",
-        "babel-jest": "^25.5.1"
+    "scripts": {
+        "play": "node --experimental-modules --no-warnings ./src/index.js",
+        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM=TRAINING yarn run play",
+        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM=FREEPLAY yarn run play",
+        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM=TOURNAMENT yarn run play",
+        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM=TRAINING yarn run play",
+        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM=FREEPLAY yarn run play",
+        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM=TOURNAMENT yarn run play",
+        "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest",
+        "lint": "eslint ."
     },
     "dependencies": {
         "@cygni/poker-client-api": "^1.0.0"

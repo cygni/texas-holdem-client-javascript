@@ -2,15 +2,17 @@ import emitters from 'events';
 import { events } from './protocol.js';
 
 const sortPlayersByChipCount = (players) => {
-    return players.map(p => p).sort((left, right) => {
-        if (left.chipCount < right.chipCount) {
-            return -1;
-        }
-        if (left.chipCount > right.chipCount) {
-            return 1;
-        }
-        return 0;
-    });
+    return players
+        .map((p) => p)
+        .sort((left, right) => {
+            if (left.chipCount < right.chipCount) {
+                return -1;
+            }
+            if (left.chipCount > right.chipCount) {
+                return 1;
+            }
+            return 0;
+        });
 };
 
 export const setupGameState = ({ name }) => {
@@ -30,21 +32,21 @@ export const setupGameState = ({ name }) => {
             bigBlindAmount: 0,
             dealer: null,
             smallBlindPlayer: null,
-            bigBlindPlayer: null
-        }
+            bigBlindPlayer: null,
+        },
     };
 
-    const createPlayersForTable = players => players.map(player => ({
-        name: player.name,
-        chipCount: player.chipCount,
-        potInvestment: 0,
-        folded: false,
-        allIn: false
-    }));
-
+    const createPlayersForTable = (players) =>
+        players.map((player) => ({
+            name: player.name,
+            chipCount: player.chipCount,
+            potInvestment: 0,
+            folded: false,
+            allIn: false,
+        }));
 
     const getMyPlayerName = () => name;
-    const getTablePlayer = name => playerState.table.players.find(p => p.name === name);
+    const getTablePlayer = (name) => playerState.table.players.find((p) => p.name === name);
     const getMyPlayer = () => getTablePlayer(getMyPlayerName());
     const addPotInvestmentToPlayer = (name, amount) => {
         playerState.potTotal = playerState.potTotal + amount;
@@ -90,8 +92,7 @@ export const setupGameState = ({ name }) => {
     });
 
     gameStateEmitter.on(events.PlayIsStartedEvent, (event) => {
-
-        playerState.isPlaying = event.players.map(player => player.name).filter(n => n === name);
+        playerState.isPlaying = event.players.map((player) => player.name).filter((n) => n === name);
         playerState.isTableDone = false;
         playerState.tableId = event.tableId;
         playerState.myCards = [];
@@ -108,13 +109,14 @@ export const setupGameState = ({ name }) => {
         playerState.table.bigBlindPlayer = event.bigBlindPlayer;
 
         playerState.amount = getMyPlayer() ? getMyPlayer().chipCount : 0;
-
     });
 
     gameStateEmitter.on(events.ShowDownEvent, (event) => {
-        event.playersShowDown.map(playerShowDown => playerShowDown.player).forEach(p => {
-            getTablePlayer(p.name).chipCount = p.chipCount;
-        });
+        event.playersShowDown
+            .map((playerShowDown) => playerShowDown.player)
+            .forEach((p) => {
+                getTablePlayer(p.name).chipCount = p.chipCount;
+            });
         playerState.amount = getMyPlayer() ? getMyPlayer().chipCount : 0;
     });
 
@@ -138,11 +140,11 @@ export const setupGameState = ({ name }) => {
     });
 
     const hasPlayerFolded = (name) => {
-        return playerState.table.players.filter(player => player.name === name && player.folded).length > 0;
+        return playerState.table.players.filter((player) => player.name === name && player.folded).length > 0;
     };
 
     const hasPlayerGoneAllIn = (name) => {
-        return playerState.table.players.filter(p => p.name === name && p.allIn).length > 0;
+        return playerState.table.players.filter((p) => p.name === name && p.allIn).length > 0;
     };
 
     const getInvestmentInPotFor = (name) => {
@@ -166,7 +168,7 @@ export const setupGameState = ({ name }) => {
          * - potInvestment: how much the player has invested in the pot
          * - folder: has the player folded (true/false)
          * - allIn: has the player gone all in (true/false)
-         * 
+         *
          * @param {string} name The name of the player.
          */
         getTablePlayer,
@@ -193,7 +195,7 @@ export const setupGameState = ({ name }) => {
 
         /**
          * Returns true if the player with the provided name has folded.
-         * 
+         *
          * @param {string} name The name of the player
          * @returns {boolean} True if the player with the provided name has folded
          */
@@ -201,7 +203,7 @@ export const setupGameState = ({ name }) => {
 
         /**
          * Returns true if the player with the provided name has gone all in.
-         * 
+         *
          * @param {string} name The name of the player
          * @returns {boolean} True if the player with the provided name has gone all in
          */
@@ -209,7 +211,7 @@ export const setupGameState = ({ name }) => {
 
         /**
          * Gets the pot investment for the specified player.
-         * 
+         *
          * @param {string} name The name of the player
          * @returns {number} The pot investment
          */
@@ -217,7 +219,7 @@ export const setupGameState = ({ name }) => {
 
         /**
          * Returns true if your bot is still in the game.
-         * 
+         *
          * @returns {boolean} True if your bot is still in the game
          */
         amIStillInGame: () => playerState.isPlaying,
@@ -262,11 +264,11 @@ export const setupGameState = ({ name }) => {
          * @returns {Array} Your two hidden cards
          */
         getMyCards: () => [...playerState.myCards],
-        
+
         /**
          * Returns an array containing only the community cards i.e. the cards on the table excluding your two hidden cards.
          * Each card contains the attributes rank and suit.
-         * 
+         *
          * @returns {Array} Your cards AND the community cards
          */
         getCommunityCards: () => playerState.communityCards,
@@ -274,7 +276,7 @@ export const setupGameState = ({ name }) => {
         /**
          * Returns an array containing your two hidden cards AND the community cards (the open cards on the table).
          * Each card contains the attributes rank and suit.
-         * 
+         *
          * @returns {Array} Your cards AND the community cards
          */
         getMyCardsAndCommunityCards: () => [...playerState.myCards, ...playerState.communityCards],
@@ -287,19 +289,19 @@ export const setupGameState = ({ name }) => {
         /**
          * Gets the current table state which can be pre flop, flop, turn, river or showdown. The states
          * are defined in the enum named tableStates.
-         * 
+         *
          * Example:
-         * import { 
+         * import {
          *     tableStates,
          * } from '@cygni/poker-client-api';
-         * 
+         *
          * // Setup bot...
-         * 
+         *
          * const status = bot.getGameState().getTableState();
          * if (status === tableStates.flop) {
          *     // do flop stuff
          * }
-         * 
+         *
          * @returns {Object} The table state, defined in the enum tableStates
          */
         getTableState: () => playerState.table.state,
@@ -313,7 +315,7 @@ export const setupGameState = ({ name }) => {
         /**
          * Get the value of the small blind. The small blind (and the big blind) is continuously raised
          * so this value will increase over time.
-         * 
+         *
          * @returns The small blind amount.
          */
         getSmallBlindAmount: () => playerState.table.smallBlindAmount,
@@ -321,17 +323,17 @@ export const setupGameState = ({ name }) => {
         /**
          * Get the value of the big blind. The big blind (and the small blind) is continuously raised
          * so this value will increase over time.
-         * 
+         *
          * @returns The big blind amount.
          */
         getBigBlindAmount: () => playerState.table.bigBlindAmount,
 
         /**
          * Gets your total chip count i.e. how much money you have.
-         * 
+         *
          * @returns Your chip count
          */
-        getMyChips: () => playerState.amount
+        getMyChips: () => playerState.amount,
     };
 
     return { gameState, gameStateEmitter };

@@ -1,8 +1,5 @@
-// eslint-disable-next-line no-undef
-// const esmImport = require('esm')(module);
 import { createDeck, isSameHand } from './deck.js';
 import { suits, ranks } from './protocol.js';
-
 
 describe('Test deck functions', () => {
     it('Verify that the skip cards are not present in deck', () => {
@@ -17,8 +14,8 @@ describe('Test deck functions', () => {
         const remaining = deck.remaining();
         expect(remaining).toBe(52 - cardsToSkip.length);
 
-        for(let i = 0; i < remaining; i++) {
-            const card = deck.draw();    
+        for (let i = 0; i < remaining; i++) {
+            const card = deck.draw();
             expect(card.rank).not.toBe(ranks.ace);
         }
         expect(deck.remaining()).toBe(0);

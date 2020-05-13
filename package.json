@@ -1,20 +1,36 @@
 {
+    "name": "texas-holdem-client-javascript",
     "private": true,
     "workspaces": [
         "poker-client-api",
         "my-bot"
     ],
+    "type": "module",
+    "engines": {
+        "node": ">=12.10.0"
+    },
     "scripts": {
-        "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TRAINING' node my-bot/src/index.js",
-        "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='FREEPLAY' node my-bot/src/index.js",
-        "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node my-bot/src/index.js",
-        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TRAINING' node my-bot/src/index.js",
-        "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='FREEPLAY' node my-bot/src/index.js",
-        "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM='TOURNAMENT' node my-bot/src/index.js",
-        "test:api": "cd poker-client-api && yarn test",
-        "test": "yarn test:api",
-        "lint:api": "cd poker-client-api && yarn lint",
-        "lint:bot": "cd my-bot && yarn lint",
-        "lint": "yarn lint:api && yarn lint:bot"
+        "play:online:training": "yarn workspace @cygni/my-bot run play:online:training",
+        "play:online:freeplay": "yarn workspace @cygni/my-bot run play:online:freeplay",
+        "play:online:tournament": "yarn workspace @cygni/my-bot run play:online:tournament",
+        "play:local:training": "yarn workspace @cygni/my-bot run play:local:training",
+        "play:local:freeplay": "yarn workspace @cygni/my-bot run play:local:freeplay",
+        "play:local:tournament": "yarn workspace @cygni/my-bot run play:local:tournament",
+        "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest",
+        "test:api": "yarn run test poker-client-api",
+        "test:bot": "yarn run test my-bot",
+        "lint": "eslint .",
+        "lint:api": "eslint poker-client-api",
+        "lint:bot": "eslint my-bot",
+        "format": "prettier --write '**/*.{md,yml,js,json}'"
+    },
+    "devDependencies": {
+        "@types/jest": "^25.2.2",
+        "eslint": "^7.0.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-prettier": "^3.1.3",
+        "jest": "^26.0.1",
+        "prettier": "^2.0.5"
     }
 }

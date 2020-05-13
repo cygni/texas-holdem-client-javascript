@@ -1,3 +1,4 @@
+// @ts-ignore
 import solver from 'pokersolver';
 
 import { toTexasCard, toSolverHand } from './pokersolver-converter.js';
@@ -34,17 +35,17 @@ const fromSolved = (solved) => {
             }
             return solved.rank;
         },
-        cards: () => solved.cards.map(solverCard => toTexasCard(`${solverCard.value}${solverCard.suit}`)),
+        cards: () => solved.cards.map((solverCard) => toTexasCard(`${solverCard.value}${solverCard.suit}`)),
         asString: () => {
             const result = {
-                cards: solved.cards.map(solverCard => `${solverCard.value}${solverCard.suit}`).join(', '),
+                cards: solved.cards.map((solverCard) => `${solverCard.value}${solverCard.suit}`).join(', '),
                 name: evaluated.name(),
                 ranking: evaluated.ranking(),
                 description: evaluated.description(),
             };
 
             return JSON.stringify(result, null, 4);
-        }
+        },
     };
 
     return evaluated;
@@ -56,11 +57,11 @@ const evaluate = (cards = []) => {
 };
 
 const winners = (texasHands) => {
-    const solvedHands = texasHands
-        .map(toSolverHand)
-        .map(solverHand => Hand.solve(solverHand));
+    const solvedHands = texasHands.map(toSolverHand).map((solverHand) => Hand.solve(solverHand));
 
-    return Hand.winners(solvedHands).map(solved => fromSolved(solved)).map(evaluated => evaluated.cards());
+    return Hand.winners(solvedHands)
+        .map((solved) => fromSolved(solved))
+        .map((evaluated) => evaluated.cards());
 };
 
 const compare = (texasHand1, texasHand2) => {
@@ -77,7 +78,7 @@ const compare = (texasHand1, texasHand2) => {
 export const evaluator = {
     /**
      * An enum of available poker hands and their ranking.
-     * 
+     *
      * The highest hand is the Royal Flush with the ranking 10.
      * The lowest hand is the High Card with a ranking of 1.
      */
@@ -86,9 +87,9 @@ export const evaluator = {
     /**
      * Evaluates the provided hand to an 'evaluated hand' which simply can give you
      * the ranking, and the name of the hand.
-     * 
+     *
      * Example: const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
-     * 
+     *
      * @param {Array} cards An array of cards, typically your cards, and the community cards.
      * @returns {Object} An evaluated hand containing the ranking, and the name of the hand.
      */
@@ -102,10 +103,10 @@ export const evaluator = {
     winners,
 
     /**
-     * Compare two hands against each other. If the first hand is the winner then -1 is returned. 
+     * Compare two hands against each other. If the first hand is the winner then -1 is returned.
      * If the second hand is the winner, +1 is returned. Equal hands returns 0.
-     * 
+     *
      * @returns -1, 0 or +1
      */
-    compare
+    compare,
 };

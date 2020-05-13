@@ -1,16 +1,19 @@
 # Texas hold'em Botgame – JavaScript client
+
 This repo contains the JavaScript client for the [Texas hold'em Botgame](https://github.com/cygni/texas-holdem-botgame).
 
 # About Texas hold'em
+
 You can read the rules of the game at [pokernews.com](https://www.pokernews.com/poker-rules/texas-holdem.htm).
 Check out the ranking of different [poker hands](docs/pokerhands.md).
 
 ## Prerequisites
-* [Docker](https://hub.docker.com/?overlay=onboarding): Note that in order to install Docker for Windows or MacOS you need to create/have an account at dockerhub. It's free and quick to setup.
-* [git](https://git-scm.com/): On Mac this is typically done via Homebrew or the Mac OS X installer. For both, you need XCode Command Line Tools (`xcode-select --install`)
 
+-   [Docker](https://hub.docker.com/?overlay=onboarding): Note that in order to install Docker for Windows or MacOS you need to create/have an account at dockerhub. It's free and quick to setup.
+-   [git](https://git-scm.com/): On Mac this is typically done via Homebrew or the Mac OS X installer. For both, you need XCode Command Line Tools (`xcode-select --install`)
 
 ## Getting started
+
 Start off by cloning the repo:
 
 ```bash
@@ -22,6 +25,7 @@ There are two processes, first off the poker server and then the poker client i.
 The local poker server runs as a docker process. The clients communicates with the server via sockets on port 4711 and there is a web interface on port 80 (and it is mapped to localhost on port 8080).
 
 Start the local server via docker-compose:
+
 ```bash
 docker-compose up poker-server
 ```
@@ -29,6 +33,7 @@ docker-compose up poker-server
 Now you can browse the admin interface on [http://localhost:8080](http://localhost:8080).
 
 Next up, getting the client started. Open a new terminal and start the development shell by executing this:
+
 ```bash
 docker-compose run --rm poker-shell
 ```
@@ -40,6 +45,7 @@ yarn install
 ```
 
 Then start the client against your local poker server:
+
 ```bash
 yarn play:local:training JohnnyPuma
 ```
@@ -53,43 +59,45 @@ So, there are three rooms – `training`, `freeplay`, and finally the `tourname
 There are two servers configured for the client. The local version that is mentioned above and the online version that is hosted on [http://poker.cygni.se](http://poker.cygni.se).
 
 The following start commands are available:
-* `yarn play:local:training`: connects to the `training` room on your [local poker server](http://localhost:8080)
-* `yarn play:local:freeplay`: connects to the `freeplay` room on your [local poker server](http://localhost:8080)
-* `yarn play:local:tournament`: connects to the `tournament` room on your [local poker server](http://localhost:8080)
-* `yarn play:online:training`: connects to the `training` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
-* `yarn play:online:freeplay`: connects to the `freeplay` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
-* `yarn play:online:tournament`: connects to the `tournament` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
+
+-   `yarn play:local:training`: connects to the `training` room on your [local poker server](http://localhost:8080)
+-   `yarn play:local:freeplay`: connects to the `freeplay` room on your [local poker server](http://localhost:8080)
+-   `yarn play:local:tournament`: connects to the `tournament` room on your [local poker server](http://localhost:8080)
+-   `yarn play:online:training`: connects to the `training` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
+-   `yarn play:online:freeplay`: connects to the `freeplay` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
+-   `yarn play:online:tournament`: connects to the `tournament` room on the online poker server @ [poker.cygni.se](http://poker.cygni.se)
 
 Note that the player name must be provided as an argument after the `yarn`-command.
 
 ## How does it work?
+
 The client connects to the server (typically on port `4711`), then the server pushes events to the client notifying the client on what is happening at the table. The client can analyze the events and when it is your turn to play you should answer to an "action request". Your answer is simply which action to choose (e.g. `raise` or `fold`).
 
 The client API contains the following:
 
 ```javascript
-import { 
+import {
     // Utility for reading from the command line
-    getNameFromCommandLine, 
+    getNameFromCommandLine,
 
     // Creates the bot
-    createBot, 
+    createBot,
 
     // Hand evaluator
     evaluator,
 
     // Enums
     rooms,
-    events, 
-    actions, 
+    events,
+    actions,
     suits,
     ranks,
 
     // Deck functions
     createDeck,
-    isSameSuit, 
-    isSameRank, 
-    isSameCard, 
+    isSameSuit,
+    isSameRank,
+    isSameCard,
     isSameHand,
 
     // And another enum, the tate of the table, pre flop, flopo, turn, river
@@ -98,10 +106,12 @@ import {
 ```
 
 ## getNameFromCommandLine
+
 This is simply a convenience method that reads an argument from the command line and uses that argument as the name for your player.
 
 ## Creating the bot
-To create a bot simply invoke the `createBot`-function with the name of your player and connect it to the server. 
+
+To create a bot simply invoke the `createBot`-function with the name of your player and connect it to the server.
 
 ```javascript
 // Create the bot
@@ -114,9 +124,10 @@ bot.connect();
 ```
 
 The `connect`-call defaults to
-* your local server (named `poker-server` in `docker-compose.yml`)
-* port `4711`
-* the `training` room
+
+-   your local server (named `poker-server` in `docker-compose.yml`)
+-   port `4711`
+-   the `training` room
 
 You may of course connect the bot to other servers and you typically specify this via the environment variables named `POKER_HOST`, `POKER_PORT` and `POKER_ROOM`. If you want to you can also provide the parameters directly to the `connect`-call.
 
@@ -128,6 +139,7 @@ bot.connect({ host: 'some.server.com', port: 1234, room: rooms.training });
 Here you can see the `rooms` enum that holds definitions for the three different rooms – `training`, `freeplay`, and `tournament`.
 
 ## Events
+
 The events are specified in the client API under `events`. The documentation for events and responses are in [docs/events.md](docs/events.md)
 
 You listen to the events by using the `EventEmitter` pattern like this:
@@ -144,13 +156,13 @@ Please note that you typically use events for logging, or for building your own 
 bot.getGameState();
 ```
 
-
 ## Actions
+
 Ok, so it is not only about listening to events. The main thing with the bot is to actually make some moves. Sometimes your player must make a move such as `fold`, `raise` etc. This is called an action handler and you register your handler like this:
 
 ```javascript
 bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
-    // Do magic, and return your action. 
+    // Do magic, and return your action.
     // Note that some of the actions may be unset.
     // Example, if a check is not possible, the checkAction is undefined
     // Each action contains the name of the action (actionType) and the amount required.
@@ -161,9 +173,10 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
 });
 ```
 
-All actions are defined in the client API under `actions`. 
+All actions are defined in the client API under `actions`.
 
 ## Game state
+
 You can use a convenience object that holds the state of the game. You access it by `bot.getGameState()`.
 
 ```javascript
@@ -174,36 +187,35 @@ bot.on(events.PlayIsStartedEvent, (event) => {
 
 The game state object contains the following methods:
 
-* `getMyPlayerName()`: get the name of my player
-* `getTablePlayer(name)`: gets a player by its name,
-* `getTablePlayers()`: gets all table players
-* `getMyPlayer()`: get my own player
-* `hasPlayerFolded(name)`: checks if a named player has folded
-* `hasPlayerGoneAllIn(name)`: checks if a named player has gone all in
-* `getInvestmentInPotFor(name)`: gets the pot for a named player (not the chipcount
-* `amIStillInGame()`: true if my player is still in the game (i.e. still has chips to play for)
-* `amIWinner()`: true if my player is the winner
-* `amIDealerPlayer()`: true if my player is the dealer
-* `amISmallBlindPlayer()`: true if my player has the small blind
-* `amIBigBlindPlayer()`: true if my player has the big blind
-* `haveIFolded()`: true if I have folded
-* `haveIGoneAllIn()`: true if I have gone all in
-* `getMyInvestmentInPot()`: get my current investment in the pot
-* `getMyCards()`: get my current cards
-* `getCommunityCards()`: get the community cards
-* `getMyCardsAndCommunityCards()`: get my cards AND the community cards
-* `getTableId()`: get the table id
-* `getTableState()`: get the current status of the table (PRE_FLOP, FLOP, TURN, RIVER, SHOWDOWN)
-* `getPotTotal()`: get the pot total
-* `getSmallBlindAmount()`: get the small blind amount
-* `getBigBlindAmount()`: get the big blind amount
-* `getMyChips()`: get my chip count
-
+-   `getMyPlayerName()`: get the name of my player
+-   `getTablePlayer(name)`: gets a player by its name,
+-   `getTablePlayers()`: gets all table players
+-   `getMyPlayer()`: get my own player
+-   `hasPlayerFolded(name)`: checks if a named player has folded
+-   `hasPlayerGoneAllIn(name)`: checks if a named player has gone all in
+-   `getInvestmentInPotFor(name)`: gets the pot for a named player (not the chipcount
+-   `amIStillInGame()`: true if my player is still in the game (i.e. still has chips to play for)
+-   `amIWinner()`: true if my player is the winner
+-   `amIDealerPlayer()`: true if my player is the dealer
+-   `amISmallBlindPlayer()`: true if my player has the small blind
+-   `amIBigBlindPlayer()`: true if my player has the big blind
+-   `haveIFolded()`: true if I have folded
+-   `haveIGoneAllIn()`: true if I have gone all in
+-   `getMyInvestmentInPot()`: get my current investment in the pot
+-   `getMyCards()`: get my current cards
+-   `getCommunityCards()`: get the community cards
+-   `getMyCardsAndCommunityCards()`: get my cards AND the community cards
+-   `getTableId()`: get the table id
+-   `getTableState()`: get the current status of the table (PRE_FLOP, FLOP, TURN, RIVER, SHOWDOWN)
+-   `getPotTotal()`: get the pot total
+-   `getSmallBlindAmount()`: get the small blind amount
+-   `getBigBlindAmount()`: get the big blind amount
+-   `getMyChips()`: get my chip count
 
 In order to e.g. get the current table status the following code can be used:
 
 ```javascript
-import { 
+import {
     // State of the table, pre flop, flopo, turn, river
     tableStates,
 } from '@cygni/poker-client-api';
@@ -219,13 +231,14 @@ if (status === tableStates.flop) {
 
 The table statuses are:
 
-* `preflop`: when you have been dealt your two cards
-* `flop`: after the flop, but before the turn
-* `turn`: after the turn, but before the river
-* `river`: after the river, but before the showdown
-* `showdown`: the showdown is a situation when, if more than one player remains after the last betting round, remaining players expose and compare their hands to determine the winner or winners
+-   `preflop`: when you have been dealt your two cards
+-   `flop`: after the flop, but before the turn
+-   `turn`: after the turn, but before the river
+-   `river`: after the river, but before the showdown
+-   `showdown`: the showdown is a situation when, if more than one player remains after the last betting round, remaining players expose and compare their hands to determine the winner or winners
 
 ## Evaluation of poker hands
+
 The client API contains a utility for evaluating poker hands. It can be imported as `evaluator` and works like this.
 
 ```javascript
@@ -251,26 +264,24 @@ if (evaluatedHand.ranking() > hands.flush.ranking) {
 
 // Compares two hands in comparator-style. The result is -1 if my hand is better,
 // +1 if "someOtherHand" is better, and 0 if the hands are equally good.
-const value = evaluator.compare(
-    gameState.getMyCardsAndCommunityCards(),
-    someOtherHand
-);
+const value = evaluator.compare(gameState.getMyCardsAndCommunityCards(), someOtherHand);
 
 // Another approach is to use the winners-function. Compare hands and get the winning hands as an array.
 const w = evaluator.winners([hand1, hand2, hand3]);
 ```
 
 The rankning of hands is as follows:
-* `Royal flush`: 10
-* `Straight flush`: 9
-* `Four of a kind`: 8
-* `Full House`: 7
-* `Flush`: 6
-* `Straight`: 5
-* `Three of a kind`: 4
-* `Two pair`: 3
-* `Pair`: 2
-* `High card`: 1
+
+-   `Royal flush`: 10
+-   `Straight flush`: 9
+-   `Four of a kind`: 8
+-   `Full House`: 7
+-   `Flush`: 6
+-   `Straight`: 5
+-   `Three of a kind`: 4
+-   `Two pair`: 3
+-   `Pair`: 2
+-   `High card`: 1
 
 So, how do you create a hand? Well, you simply create an array with cards, and a card has a rank and a suit.
 
@@ -290,25 +301,27 @@ const hand = [
 ```
 
 The ranks are:
-* `deuce`
-* `three`
-* `four`
-* `five`
-* `six`
-* `seven`
-* `eight`
-* `nine`
-* `ten`
-* `jack`
-* `queen`
-* `king`
-* `ace`
+
+-   `deuce`
+-   `three`
+-   `four`
+-   `five`
+-   `six`
+-   `seven`
+-   `eight`
+-   `nine`
+-   `ten`
+-   `jack`
+-   `queen`
+-   `king`
+-   `ace`
 
 The suits are:
-* `clubs`
-* `diamonds`
-* `spades`
-* `hearts`
+
+-   `clubs`
+-   `diamonds`
+-   `spades`
+-   `hearts`
 
 There are also some utility functions where you can work with a deck of cards. The deck is based on the NPM package [card-deck](https://www.npmjs.com/package/card-deck).
 
@@ -317,9 +330,9 @@ import {
     suits,
     ranks,
     createDeck,
-    isSameSuit, 
-    isSameRank, 
-    isSameCard, 
+    isSameSuit,
+    isSameRank,
+    isSameCard,
     isSameHand,
 } from '@cygni/poker-client-api';
 
@@ -336,15 +349,14 @@ const moreCards2 = deck.draw(5);
 isSameHand(moreCards1, moreCards2); // false
 ```
 
-
 ## Inspiration
+
 The following code can be used as inspiration on how to implement your bot. It uses the evaluator and the ranking function.
 
 ```javascript
 bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, allInAction }) => {
-    
     // First, define some function with various actions
-    
+
     // All in on good cards
     const selectHighRankingAction = () => allInAction;
 
@@ -353,7 +365,6 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
 
     // Try to check, call etc.
     const selectLowRankingAction = () => checkAction || callAction || raiseAction || allInAction || foldAction;
-
 
     // Now, get the ranking and invoke the "correct function"
     const ranking = evaluator.evaluate(bot.getGameState().getMyCardsAndCommunityCards()).ranking();
