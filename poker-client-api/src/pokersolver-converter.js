@@ -33,8 +33,8 @@ const solverRankValues = Object.values(solverRanks);
 const rankOne = '1';
 solverRankValues.push(rankOne);
 
-const toSolverSuit = texasCard => {
-    const s = Object.entries(suits).find(entry => texasCard.suit === entry[1]);
+const toSolverSuit = (texasCard) => {
+    const s = Object.entries(suits).find((entry) => texasCard.suit === entry[1]);
 
     if (s) {
         return solverSuits[s[0]];
@@ -42,8 +42,8 @@ const toSolverSuit = texasCard => {
     throw new Error(`Invalid suit [suit=${texasCard.suit}]`);
 };
 
-const toSolverRank = texasCard => {
-    const r = Object.entries(ranks).find(entry => texasCard.rank === entry[1]);
+const toSolverRank = (texasCard) => {
+    const r = Object.entries(ranks).find((entry) => texasCard.rank === entry[1]);
 
     if (r) {
         return solverRanks[r[0]];
@@ -77,27 +77,27 @@ const validateSolverCard = (solverCard) => {
     throw new Error(`Invalid solver card [solverCard=${solverCard}]`);
 };
 
-const toTexasSuit = solverCard => {
-    const s = Object.entries(solverSuits).find(entry => solverCard[1] === entry[1]);
+const toTexasSuit = (solverCard) => {
+    const s = Object.entries(solverSuits).find((entry) => solverCard[1] === entry[1]);
     return suits[s[0]];
 };
 
-const toTexasRank = solverCard => {
+const toTexasRank = (solverCard) => {
     // Special case, not a real card, but the pokersolver-lib sometimes converts to this for aces
     if (solverCard[0] === rankOne) {
         return ranks.ace;
     }
 
-    const r = Object.entries(solverRanks).find(entry => solverCard[0] === entry[1]);
+    const r = Object.entries(solverRanks).find((entry) => solverCard[0] === entry[1]);
     return ranks[r[0]];
 };
 
-const toTexasCard = solverCard => {
+const toTexasCard = (solverCard) => {
     validateSolverCard(solverCard);
     return { rank: toTexasRank(solverCard), suit: toTexasSuit(solverCard) };
 };
 
-const toSolverHand = texasHand => texasHand.map(toSolverCard);
-const toTexasHand = solverHand => solverHand.map(toTexasCard);
+const toSolverHand = (texasHand) => texasHand.map(toSolverCard);
+const toTexasHand = (solverHand) => solverHand.map(toTexasCard);
 
 export { toSolverCard, toTexasCard, toSolverHand, toTexasHand };

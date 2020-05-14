@@ -1,0 +1,25 @@
+{
+    "extends": ["eslint:recommended", "plugin:node/recommended", "plugin:prettier/recommended"],
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "overrides": [
+        {
+            "files": ["**/*.{test,spec}.js", "**/{__tests__}/*"],
+            "rules": {
+                "node/no-extraneous-import": "off"
+            },
+            "env": {
+                "jest": true
+            }
+        }
+    ],
+    "rules": {
+        "curly": ["error", "all"],
+        "no-param-reassign": ["error", { "props": false }],
+        "no-underscore-dangle": ["error", { "allow": ["resp", "_fields", "_stats"] }],
+        "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
+        "node/file-extension-in-import": ["error", "always"],
+        "complexity": ["error", { "max": 5 }]
+    }
+}

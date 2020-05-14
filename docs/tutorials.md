@@ -2,14 +2,15 @@
 
 Below you can find some shorter tutorials that shows various aspect of the bot programming.
 
-* [Are my hidden cards a pair](#pair)
-* [Are my hidden cards suited?](#suited)
-* [Are my two hidden cards jacks or higher?](#jacksorhigher)
-* [After the flop, is my full hand better than the community cards?](#betterhand)
-* [Go all in if you have straight or better](#straightorbetter)
+-   [Are my hidden cards a pair](#pair)
+-   [Are my hidden cards suited?](#suited)
+-   [Are my two hidden cards jacks or higher?](#jacksorhigher)
+-   [After the flop, is my full hand better than the community cards?](#betterhand)
+-   [Go all in if you have straight or better](#straightorbetter)
 
 ## Are my hidden cards a pair <span id="pair"></span>
-This simple bot checks if your hidden cards are a pair (i.e. if they have the same rank). 
+
+This simple bot checks if your hidden cards are a pair (i.e. if they have the same rank).
 If it is a pair, the bot goes all in, otherwise it folds.
 
 ```javascript
@@ -32,6 +33,7 @@ bot.connect();
 ```
 
 ## Are my hidden cards suited? <span id="suited"></span>
+
 A bot that checks if your hidden cards are suited, and if your cards are suited in diamonds. If that is the case, go all in - otherwise fold.
 
 ```javascript
@@ -56,6 +58,7 @@ bot.connect();
 ```
 
 ## Are my two hidden cards jacks or higher? <span id="jacksorhigher"></span>
+
 A bot that checks if your hidden cards are jacks or higher. If so, go all in - otherwise fold.
 
 ```javascript
@@ -71,7 +74,7 @@ bot.registerActionHandler(({ foldAction, allInAction }) => {
     const first = ranks.fromRankToNumber(myCards[0].rank);
     const second = ranks.fromRankToNumber(myCards[1].rank);
 
-    if ((first >= jack) && (second >= jack)) {
+    if (first >= jack && second >= jack) {
         return allInAction;
     }
 
@@ -82,6 +85,7 @@ bot.connect();
 ```
 
 ## After the flop, is my full hand better than the community cards? <span id="betterhand"></span>
+
 A bot that checks if your hand is better than the community cards i.e. does your hidden cards help to get a better hand.
 
 During the pre flop, play somewhat cautiosly.
@@ -126,6 +130,7 @@ bot.connect();
 ```
 
 ## Go all in if you have straight or better <span id="straightorbetter"></span>
+
 A bot that checks if your hand has straight or higher, and in that case goes all in.
 
 During the pre flop, follow if you have two cards higher than tens.
@@ -171,7 +176,13 @@ bot.registerActionHandler(({ checkAction, callAction, raiseAction, foldAction, a
         return handlePreFlop({ checkAction, callAction, foldAction });
     }
 
-    return goAllInOnStraightOrHigher({ checkAction, callAction, raiseAction, foldAction, allInAction });
+    return goAllInOnStraightOrHigher({
+        checkAction,
+        callAction,
+        raiseAction,
+        foldAction,
+        allInAction,
+    });
 });
 
 bot.connect();

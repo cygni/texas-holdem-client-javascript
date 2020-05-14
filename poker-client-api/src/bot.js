@@ -41,18 +41,18 @@ const routeEvent = async ({ client, event, dispatcher }) => {
     const e = beautify({ event });
 
     switch (e.classifier) {
-    case classifiers.request:
-        await handleRequest({ client, request: e, dispatcher });
-        break;
-    case classifiers.event:
-        // TODO: can be async
-        dispatcher.emit(event.name, e);
-        break;
-    case classifiers.exception:
-        throw new Error(`Exception from server [event=${e.name}, message=${e.message}]`);
-    default:
-        // Ignore responses and similar
-        break;
+        case classifiers.request:
+            await handleRequest({ client, request: e, dispatcher });
+            break;
+        case classifiers.event:
+            // TODO: can be async
+            dispatcher.emit(event.name, e);
+            break;
+        case classifiers.exception:
+            throw new Error(`Exception from server [event=${e.name}, message=${e.message}]`);
+        default:
+            // Ignore responses and similar
+            break;
     }
 };
 
@@ -63,7 +63,7 @@ const setupClient = ({ host, port, room, name, dispatcher }) => {
     client.setKeepAlive(true, 0);
 
     client.on('close', () => console.log('Connection closed'));
-    client.on('error', err => console.error('Socket Error: ', err));
+    client.on('error', (err) => console.error('Socket Error: ', err));
 
     // Add a 'data' event handler for the client socket
     // data is what the server sent to this socket
@@ -101,22 +101,28 @@ const setupClient = ({ host, port, room, name, dispatcher }) => {
                 client.write(`${JSON.stringify(createRegisterForPlayRequest({ name, room }))}${jsonDelimiter}`);
                 console.log(`Play registered [room=${room}, name=${name}]`);
             });
-        }
+        },
     };
 };
 
 const validateAction = ({ action, possibleActions }) => {
     // Validate that a correct action
     if (!action) {
-        throw new Error(`Undefined action from the request handler [action=${action}, valid=[${Object.values(actions).join(', ')}]]`);
-    }
-    
-    if (!Object.values(actions).includes(action.actionType)) {
-        throw new Error(`Invalid action from the request handler [action=${action.actionType}, valid=[${Object.values(actions).join(', ')}]]`);
+        throw new Error(
+            `Undefined action from the request handler [action=${action}, valid=[${Object.values(actions).join(', ')}]]`
+        );
     }
 
-    const possibleActionNames = possibleActions.map(a => a.actionType);
-    if (!possibleActions.map(a => a.actionType).includes(action.actionType)) {
+    if (!Object.values(actions).includes(action.actionType)) {
+        throw new Error(
+            `Invalid action from the request handler [action=${action.actionType}, valid=[${Object.values(actions).join(
+                ', '
+            )}]]`
+        );
+    }
+
+    const possibleActionNames = possibleActions.map((a) => a.actionType);
+    if (!possibleActions.map((a) => a.actionType).includes(action.actionType)) {
         throw new Error(`Action not possible [action=${action}, possible=[${possibleActionNames.join(', ')}]]`);
     }
 };
@@ -128,23 +134,23 @@ const setupPossibleActions = (possibleActions) => {
         // eslint-disable-next-line complexity
         .forEach((action) => {
             switch (action.actionType) {
-            case actions.raise:
-                raiseAction = action;
-                break;
-            case actions.call:
-                callAction = action;
-                break;
-            case actions.check:
-                checkAction = action;
-                break;
-            case actions.fold:
-                foldAction = action;
-                break;
-            case actions.allIn:
-                allInAction = action;
-                break;
-            default:
-                break;
+                case actions.raise:
+                    raiseAction = action;
+                    break;
+                case actions.call:
+                    callAction = action;
+                    break;
+                case actions.check:
+                    checkAction = action;
+                    break;
+                case actions.fold:
+                    foldAction = action;
+                    break;
+                case actions.allIn:
+                    allInAction = action;
+                    break;
+                default:
+                    break;
             }
         });
     return { raiseAction, callAction, checkAction, foldAction, allInAction };
@@ -152,11 +158,11 @@ const setupPossibleActions = (possibleActions) => {
 
 /**
  * Creates a bot with the provided name. The bot must do (at least) the following:
- * 
+ *
  * 1. Register an action handler by invoking @see {@link registerActionHandler}.
  * 2. Connect to the server by invoking @see {@link connect}.
- * 
- * In addition to this the bot can access all of the events by listening to them. Furthermore, 
+ *
+ * In addition to this the bot can access all of the events by listening to them. Furthermore,
  * the bot can at any time access the game state by invoking @see {getGameState}.
  * @param {string} name The name of your marvelous poker bot.
  */
@@ -173,24 +179,26 @@ export const createBot = ({ name }) => {
             gameStateEmitter.emit(name, event);
             playerEmitter.emit(name, event);
         },
-        handleActionRequest: async (possibleActions) => actionRequestHandler
-            .handleActionRequest(setupPossibleActions(possibleActions)),
+        handleActionRequest: async (possibleActions) =>
+            actionRequestHandler.handleActionRequest(setupPossibleActions(possibleActions)),
     };
 
     return {
         /**
          * Connect to the server. Here you specify the host, port and poker room.
-         * 
+         *
          * @see rooms
          * @param {string} host the poker host, defaults to 'host.docker.internal' which is the docker host
          * @param {number} port the port, defaults to 4711
          * @param {string} room the poker room, defaults to the training room. To select other rooms see the `rooms` enum
          */
-        connect: (config = {
-            host: process.env.POKER_HOST || 'host.docker.internal',
-            port: process.env.POKER_PORT || 4711,
-            room: process.env.POKER_ROOM || rooms.training(),
-        }) => {
+        connect: (
+            config = {
+                host: process.env.POKER_HOST || 'host.docker.internal',
+                port: process.env.POKER_PORT || 4711,
+                room: process.env.POKER_ROOM || rooms.training(),
+            }
+        ) => {
             const client = setupClient({ ...config, name, dispatcher });
             client.connect();
         },
@@ -205,10 +213,10 @@ export const createBot = ({ name }) => {
         /**
          * Registers your action handler which is the piece of code where you place your logic. Here
          * you should provide a callback that will be invoked when it is your turn to do any actions.
-         * 
+         *
          * The parameters sent to the callback are: { allInAction, raiseAction, callAction, checkAction, foldAction }.
          * If an action can not be performed (e.g if you cant check) that action will be undefined.
-         * 
+         *
          * @param {function} handler The callback that will be invoked where you place your logic.
          */
         registerActionHandler: (handler) => {
@@ -218,9 +226,9 @@ export const createBot = ({ name }) => {
 
         /**
          * Registers a listener for an event.
-         * 
+         *
          * Usage: bot.on(events.PlayIsStartedEvent, (event) => { ... });
-         * 
+         *
          * @param {string} name the event name, all events are listed in the `events` enum
          * @param {function} callback the listener (a callback)
          */

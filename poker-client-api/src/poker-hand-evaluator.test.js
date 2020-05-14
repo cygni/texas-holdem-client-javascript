@@ -223,7 +223,6 @@ describe('Test card hands', () => {
         const communityRanking = evaluator.evaluate(communityCards).ranking();
         expect(myRanking).toBeGreaterThan(communityRanking);
 
-
         const compare = evaluator.compare([...myCards, ...communityCards], communityCards);
         expect(compare).toBe(-1);
     });

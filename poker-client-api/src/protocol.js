@@ -23,13 +23,13 @@ export const createRegisterForPlayRequest = ({ name, room }) => ({
     sessionId: '',
     requestId: uuid.v4(),
     name,
-    room
+    room,
 });
 
 export const createActionResponse = ({ action, request }) => ({
     type: 'se.cygni.texasholdem.communication.message.response.ActionResponse',
     requestId: request.requestId,
-    action
+    action,
 });
 
 /**
@@ -68,7 +68,7 @@ export const events = {
 };
 
 export const requests = {
-    actionRequest: 'ActionRequest'
+    actionRequest: 'ActionRequest',
 };
 
 const TRAINING = 'TRAINING';
@@ -101,15 +101,17 @@ export const rooms = {
      */
     validate: (room) => {
         switch (room) {
-        case TRAINING:
-        case TOURNAMENT:
-        case FREEPLAY:
-            return true;
+            case TRAINING:
+            case TOURNAMENT:
+            case FREEPLAY:
+                return true;
 
-        default:
-            throw new Error(`Unable to validate room [room=${room}, valid=${[TRAINING, TOURNAMENT, FREEPLAY].join(', ')}]`);
+            default:
+                throw new Error(
+                    `Unable to validate room [room=${room}, valid=${[TRAINING, TOURNAMENT, FREEPLAY].join(', ')}]`
+                );
         }
-    }
+    },
 };
 
 /**
@@ -137,34 +139,34 @@ export const suits = {
 // eslint-disable-next-line complexity
 const fromRankToNumber = (rank) => {
     switch (rank) {
-    case ranks.deuce:
-        return 2;
-    case ranks.three:
-        return 3;
-    case ranks.four:
-        return 4;
-    case ranks.five:
-        return 5;
-    case ranks.six:
-        return 6;
-    case ranks.seven:
-        return 7;
-    case ranks.eight:
-        return 8;
-    case ranks.nine:
-        return 9;
-    case ranks.ten:
-        return 10;
-    case ranks.jack:
-        return 11;
-    case ranks.queen:
-        return 12;
-    case ranks.king:
-        return 13;
-    case ranks.ace:
-        return 14;
-    default:
-        throw new Error(`Unsupported rank [rank=${rank}]`);
+        case ranks.deuce:
+            return 2;
+        case ranks.three:
+            return 3;
+        case ranks.four:
+            return 4;
+        case ranks.five:
+            return 5;
+        case ranks.six:
+            return 6;
+        case ranks.seven:
+            return 7;
+        case ranks.eight:
+            return 8;
+        case ranks.nine:
+            return 9;
+        case ranks.ten:
+            return 10;
+        case ranks.jack:
+            return 11;
+        case ranks.queen:
+            return 12;
+        case ranks.king:
+            return 13;
+        case ranks.ace:
+            return 14;
+        default:
+            throw new Error(`Unsupported rank [rank=${rank}]`);
     }
 };
 
@@ -190,10 +192,8 @@ export const ranks = {
 
     /**
      * Converts a rank to a numerical value where 2 is the lowes (ranks.deuce) and ace is the highest (ranks.ace).
-     * 
+     *
      * @param {String} rank the rank (from the ranks enum).
      */
-    fromRankToNumber
+    fromRankToNumber,
 };
-
-
