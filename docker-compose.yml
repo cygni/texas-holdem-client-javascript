@@ -10,7 +10,7 @@ services:
 
     # Can be used as a shell within the docker container. Should contain node, yarn etc
     poker-shell:
-        image: node:14-stretch
+        image: node:14.2-stretch
         stdin_open: true
         tty: true
         volumes:

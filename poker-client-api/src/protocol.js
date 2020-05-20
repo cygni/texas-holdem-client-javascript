@@ -1,4 +1,6 @@
-import { v4 } from 'uuid';
+import * as uuid from 'uuid';
+
+const { v4 } = uuid;
 
 export const jsonDelimiter = '_-^emil^-_';
 
