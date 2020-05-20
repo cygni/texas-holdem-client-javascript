@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 
 export const jsonDelimiter = '_-^emil^-_';
 
@@ -21,7 +21,7 @@ export const classifiers = {
 export const createRegisterForPlayRequest = ({ name, room }) => ({
     type: 'se.cygni.texasholdem.communication.message.request.RegisterForPlayRequest',
     sessionId: '',
-    requestId: uuid.v4(),
+    requestId: v4(),
     name,
     room,
 });

@@ -2,7 +2,12 @@ import Deck from 'card-deck';
 
 import { suits, ranks } from './protocol.js';
 
-const allCardsForSuit = (suit) => Object.values(ranks).map((rank) => ({ suit, rank }));
+const isString = (value) => typeof value == 'string';
+
+const allCardsForSuit = (suit) =>
+    Object.values(ranks)
+        .filter((rank) => isString(rank))
+        .map((rank) => ({ suit, rank }));
 const allCards = () => Object.values(suits).map(allCardsForSuit).flat();
 
 /**
