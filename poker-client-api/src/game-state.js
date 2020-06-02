@@ -232,17 +232,17 @@ export const setupGameState = ({ name }) => {
         /**
          * @returns {boolean} true if your bot is the current dealer
          */
-        amIDealerPlayer: () => playerState.table.dealer === getMyPlayerName(),
+        amIDealerPlayer: () => playerState.table.dealer.name === getMyPlayerName(),
 
         /**
          * @returns {boolean} true if your bot has the small bline
          */
-        amISmallBlindPlayer: () => playerState.table.smallBlindPlayer === getMyPlayerName(),
+        amISmallBlindPlayer: () => playerState.table.smallBlindPlayer.name === getMyPlayerName(),
 
         /**
          * @returns {boolean} true if your bot has the big blind
          */
-        amIBigBlindPlayer: () => playerState.table.bigBlindPlayer === getMyPlayerName(),
+        amIBigBlindPlayer: () => playerState.table.bigBlindPlayer.name === getMyPlayerName(),
 
         /**
          * @returns {boolean} true if your bot has folded
