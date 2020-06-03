@@ -40,19 +40,23 @@ const beautify = ({ event }) => {
 const routeEvent = async ({ client, event, dispatcher }) => {
     const e = beautify({ event });
 
-    switch (e.classifier) {
-        case classifiers.request:
-            await handleRequest({ client, request: e, dispatcher });
-            break;
-        case classifiers.event:
-            // TODO: can be async
-            dispatcher.emit(event.name, e);
-            break;
-        case classifiers.exception:
-            throw new Error(`Exception from server [event=${e.name}, message=${e.message}]`);
-        default:
-            // Ignore responses and similar
-            break;
+    try {
+        switch (e.classifier) {
+            case classifiers.request:
+                await handleRequest({ client, request: e, dispatcher });
+                break;
+            case classifiers.event:
+                // TODO: can be async
+                dispatcher.emit(event.name, e);
+                break;
+            case classifiers.exception:
+                throw new Error(`Exception from server [event=${e.name}, message=${e.message}]`);
+            default:
+                // Ignore responses and similar
+                break;
+        }
+    } catch (err) {
+        console.error('Bot error when routing event', err);
     }
 };
 
@@ -230,7 +234,7 @@ export const createBot = ({ name }) => {
          * Usage: bot.on(events.PlayIsStartedEvent, (event) => { ... });
          *
          * @param {string} name the event name, all events are listed in the `events` enum
-         * @param {function} callback the listener (a callback)
+         * @param {Function} callback the listener (a callback)
          */
         on: (name, callback) => {
             // Return values in callbacks are completely ignored as per the EventEmitter-pattern.
