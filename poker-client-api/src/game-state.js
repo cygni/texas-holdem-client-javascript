@@ -334,6 +334,13 @@ export const setupGameState = ({ name }) => {
          * @returns Your chip count
          */
         getMyChips: () => playerState.amount,
+
+        /**
+         * Get dealer
+         *
+         * @returns Player that is dealer
+         */
+        getDealer: () => playerState.table.dealer,
     };
 
     return { gameState, gameStateEmitter };
