@@ -19,6 +19,7 @@
         "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest",
         "test:api": "yarn run test poker-client-api",
         "test:bot": "yarn run test my-bot",
+        "watch:bot": "yarn run test:bot --watchAll",
         "lint": "eslint .",
         "lint:api": "eslint poker-client-api",
         "lint:bot": "eslint my-bot",
