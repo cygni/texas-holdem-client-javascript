@@ -190,16 +190,6 @@ describe('Test card hands', () => {
         expect(evaluator.compare(royalFlush, straightFlush)).toBe(-1);
     });
 
-    it('Verify winners', () => {
-        const r1 = evaluator.winners([pair, higherPair, twoPair]);
-        expect(evaluator.evaluate(r1[0]).name()).toEqual(evaluator.hands.twoPair.name);
-
-        const r2 = evaluator.winners([highCard, pair, higherPair]);
-        expect(evaluator.evaluate(r2[0]).name()).toEqual(evaluator.hands.pair.name);
-
-        expect(r2.length).toEqual(1);
-    });
-
     it('Verify same ranking for two pair hand', () => {
         const evaluated = evaluator.evaluate(twoPair);
         const evaluatedHigher = evaluator.evaluate(higherTwoPair);

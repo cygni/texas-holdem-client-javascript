@@ -265,9 +265,6 @@ if (evaluatedHand.ranking() > hands.flush.ranking) {
 // Compares two hands in comparator-style. The result is -1 if my hand is better,
 // +1 if "someOtherHand" is better, and 0 if the hands are equally good.
 const value = evaluator.compare(gameState.getMyCardsAndCommunityCards(), someOtherHand);
-
-// Another approach is to use the winners-function. Compare hands and get the winning hands as an array.
-const w = evaluator.winners([hand1, hand2, hand3]);
 ```
 
 The rankning of hands is as follows:

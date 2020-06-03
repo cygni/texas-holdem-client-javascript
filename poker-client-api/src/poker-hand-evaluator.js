@@ -56,14 +56,6 @@ const evaluate = (cards = []) => {
     return fromSolved(solved);
 };
 
-const winners = (texasHands) => {
-    const solvedHands = texasHands.map(toSolverHand).map((solverHand) => Hand.solve(solverHand));
-
-    return Hand.winners(solvedHands)
-        .map((solved) => fromSolved(solved))
-        .map((evaluated) => evaluated.cards());
-};
-
 const compare = (texasHand1, texasHand2) => {
     const solved1 = Hand.solve(toSolverHand(texasHand1));
     const solved2 = Hand.solve(toSolverHand(texasHand2));
@@ -94,13 +86,6 @@ export const evaluator = {
      * @returns {Object} An evaluated hand containing the ranking, and the name of the hand.
      */
     evaluate,
-
-    /**
-     * From a set of hands, find the winners. Useful when comparing hands against each other.
-     * @param {Array} texasHands An array of hands (and a hand is an array of cards).
-     * @returns {Array} An array of the winning hands. Usually just one hand.
-     */
-    winners,
 
     /**
      * Compare two hands against each other. If the first hand is the winner then -1 is returned.
