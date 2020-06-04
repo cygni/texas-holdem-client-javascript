@@ -27,7 +27,6 @@ bot.registerActionHandler(({ raiseAction, callAction, checkAction, foldAction, a
     console.log(`My cards:${myCardsInfo}`);
     console.log(`My hand: ${evaluatedHand.name()}, handRanking: ${handRanking}`);
 
-    raiseAction.amount = 100000;
     // This bot is very aggressive - it always tries to raise, or go all in
     return raiseAction || allInAction || callAction || checkAction || foldAction;
 });
