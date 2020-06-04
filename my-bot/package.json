@@ -15,7 +15,7 @@
         "play:online:training": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM=TRAINING yarn run play",
         "play:online:freeplay": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM=FREEPLAY yarn run play",
         "play:online:tournament": "POKER_HOST=poker.cygni.se POKER_PORT=4711 POKER_ROOM=TOURNAMENT yarn run play",
-        "play:local:training": "POKER_HOST=localhost POKER_PORT=4711 POKER_ROOM=TRAINING yarn run play",
+        "play:local:training": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM=TRAINING yarn run play",
         "play:local:freeplay": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM=FREEPLAY yarn run play",
         "play:local:tournament": "POKER_HOST=poker-server POKER_PORT=4711 POKER_ROOM=TOURNAMENT yarn run play",
         "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest",
