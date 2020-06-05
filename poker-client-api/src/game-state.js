@@ -86,9 +86,18 @@ export const setupGameState = ({ name }) => {
             getTablePlayer(event.player.name).allIn = true;
         }
     });
+
     gameStateEmitter.on(events.PlayerWentAllInEvent, (event) => {
         addPotInvestmentToPlayer(event.player.name, event.allInAmount);
         getTablePlayer(event.player.name).allIn = true;
+    });
+
+    gameStateEmitter.on(events.PlayerFoldedEvent, (event) => {
+        getTablePlayer(event.player.name).folded = true;
+    });
+
+    gameStateEmitter.on(events.PlayerForcedFoldedEvent, (event) => {
+        getTablePlayer(event.player.name).folded = true;
     });
 
     gameStateEmitter.on(events.PlayIsStartedEvent, (event) => {
