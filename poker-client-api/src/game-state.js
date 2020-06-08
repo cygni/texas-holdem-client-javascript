@@ -278,7 +278,7 @@ export const setupGameState = ({ name }) => {
          * Returns an array containing only the community cards i.e. the cards on the table excluding your two hidden cards.
          * Each card contains the attributes rank and suit.
          *
-         * @returns {Array} Your cards AND the community cards
+         * @returns {Array} The community cards
          */
         getCommunityCards: () => playerState.communityCards,
 
